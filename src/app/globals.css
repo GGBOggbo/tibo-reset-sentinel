@@ -1,1 +1,63 @@
-body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; }
+:root {
+  --bg: #06090f;
+  --bg-soft: #0b111c;
+  --card: #0e1624;
+  --card-border: #1a2740;
+  --text: #dbe7f5;
+  --text-dim: #7e8ea8;
+  --accent: #2de0a5;
+  --accent-dim: #157f5c;
+  --warn: #ffb84d;
+  --danger: #ff6b6b;
+  --radius: 14px;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.shell { max-width: 640px; margin: 0 auto; padding: 16px 16px 48px; }
+@media (min-width: 768px) { .shell { padding-top: 32px; } }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.mono-num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--accent-dim); color: var(--accent);
+  background: rgba(45, 224, 165, 0.08);
+}
+.badge.warn { border-color: var(--warn); color: var(--warn); background: rgba(255, 184, 77, 0.08); }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.dot.pulse { animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  border-radius: 10px; border: 1px solid var(--card-border);
+  background: var(--bg-soft); color: var(--text);
+  font-size: 14px; padding: 10px 16px; cursor: pointer; text-decoration: none;
+}
+.btn.primary { background: var(--accent); color: #04120c; font-weight: 600; border-color: var(--accent); }
+.muted { color: var(--text-dim); font-size: 12px; }
+a { color: var(--accent); }
