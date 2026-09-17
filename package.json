@@ -1,0 +1,27 @@
+{
+  "name": "edu-shaobing",
+  "private": true,
+  "packageManager": "pnpm@10.33.2",
+  "scripts": {
+    "dev": "next dev -p 3210",
+    "build": "next build",
+    "test": "vitest run",
+    "validate": "tsx scripts/validate.ts",
+    "poll": "tsx scripts/poll.ts",
+    "bootstrap": "tsx scripts/bootstrap.ts",
+    "record": "tsx scripts/record.ts"
+  },
+  "dependencies": {
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  }
+}
