@@ -36,4 +36,12 @@ describe("resetIntervalsDays", () => {
   it("返回升序确认重置的相邻间隔", () => {
     expect(resetIntervalsDays(events)).toEqual([2, 2, 4, 8]);
   });
+  it("乱序输入 + banked 计入并正确排序", () => {
+    const shuffled = [
+      ev("4", "2026-01-09T00:00:00.000Z", "reset"),
+      ev("1", "2026-01-01T00:00:00.000Z", "banked"), // banked 也算确认重置
+      ev("2", "2026-01-03T00:00:00.000Z", "reset"),
+    ];
+    expect(resetIntervalsDays(shuffled)).toEqual([2, 6]);
+  });
 });
