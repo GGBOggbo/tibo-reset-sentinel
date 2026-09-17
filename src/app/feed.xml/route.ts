@@ -12,8 +12,8 @@ export function GET() {
     .reverse()
     .map((e) => `  <item>
     <title>${esc(e.title)}</title>
-    <link>${e.tweetUrl}</link>
-    <guid isPermaLink="true">${e.tweetUrl}</guid>
+    <link>${esc(e.tweetUrl)}</link>
+    <guid isPermaLink="true">${esc(e.tweetUrl)}</guid>
     <pubDate>${new Date(e.announcedAt).toUTCString()}</pubDate>
     <description>${esc(e.summary)}</description>
   </item>`)

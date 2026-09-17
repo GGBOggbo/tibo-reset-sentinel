@@ -6,7 +6,7 @@ const KEY = "wish-count";
 export default function WishButton() {
   const [count, setCount] = useState<number | null>(null);
   useEffect(() => {
-    setCount(Number(localStorage.getItem(KEY) ?? "0"));
+    setCount(Number(localStorage.getItem(KEY) ?? "0") || 0);
   }, []);
   const wish = () => {
     const next = (count ?? 0) + 1;

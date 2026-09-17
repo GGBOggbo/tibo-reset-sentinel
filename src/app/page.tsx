@@ -11,8 +11,9 @@ export default function Page() {
   const { events } = loadEvents();
   const stats = deriveStats(events);
   const prob = probability(resetIntervalsDays(events), stats.daysSinceLastReset);
+  const health = loadHealth();
   // 构建时求值：降级判定最长延迟一个心跳周期（12h）
-  const healthy = Date.now() - Date.parse(loadHealth().lastSuccessAt) < 26 * 3_600_000;
+  const healthy = Date.now() - Date.parse(health.lastSuccessAt) < 26 * 3_600_000;
   const now = new Date();
   const lastReset = confirmedResets(events).at(-1)!;
   return (
@@ -22,7 +23,7 @@ export default function Page() {
       <ResetTimeline events={events} stats={stats} />
       <FeedList events={events} nowIso={now.toISOString()} />
       <WishButton />
-      <SiteFooter stats={stats} updatedIso={loadHealth().lastSuccessAt} />
+      <SiteFooter stats={stats} updatedIso={health.lastSuccessAt} />
     </main>
   );
 }

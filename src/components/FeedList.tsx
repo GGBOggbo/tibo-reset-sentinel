@@ -24,7 +24,7 @@ export default function FeedList({ events, nowIso }: { events: ResetEvent[]; now
       <p className="eyebrow">TIBO / RECENT SIGNALS</p>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
         {FILTERS.map((f) => (
-          <button key={f.key} className="btn" onClick={() => setFilter(f.key)}
+          <button key={f.key} className="btn" onClick={() => setFilter(f.key)} aria-pressed={filter === f.key}
             style={filter === f.key ? { borderColor: "var(--accent)", color: "var(--accent)" } : undefined}>
             {f.label}
           </button>

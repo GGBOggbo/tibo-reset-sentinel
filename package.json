@@ -1,6 +1,7 @@
 {
   "name": "edu-shaobing",
   "private": true,
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "dev": "next dev -p 3210",
     "build": "next build",
