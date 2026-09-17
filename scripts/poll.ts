@@ -36,6 +36,7 @@ async function main() {
 
     if (fresh.length > 0) {
       let seq = confirmedResets(local.events).length;
+      let pushed = 0;
       for (const r of fresh) {
         seq += 1;
         const mapped = mapRemote(r, seq);
@@ -47,11 +48,12 @@ async function main() {
         if (!DRY) {
           fs.writeFileSync(path.join(DATA, "events.json"), JSON.stringify(local, null, 2) + "\n");
           persisted = true;
+          pushed += 1;
         }
       }
       if (!DRY) await sendOpsAlert(`发现 ${fresh.length} 条新重置事件（最新第 ${seq} 次），已推送订阅群并更新数据，待部署生效。`);
-      console.log(`新事件 ${fresh.length} 条`);
-      setOutput("changed", "1");
+      console.log(`新事件 ${fresh.length} 条${DRY ? "（dry-run，未落盘未推送）" : `，已推送 ${pushed} 条`}`);
+      setOutput("changed", DRY ? "0" : "1"); // dry-run 不触发 workflow 提交
       setOutput("changedCount", String(fresh.length));
     } else {
       console.log("无新事件");
@@ -61,8 +63,11 @@ async function main() {
       JSON.stringify({ lastSuccessAt: new Date().toISOString() }, null, 2) + "\n");
   } catch (err) {
     console.error("本轮抓取/推送中断：", err);
-    const staleMs = Date.now() - Date.parse(loadHealth().lastSuccessAt);
-    if (staleMs > STALE_H * 3_600_000 && !DRY)
+    // health 读取失败不阻断 changed 输出，否则已推送事件不被提交、下轮会重复 @所有人
+    let lastSuccessAt = "";
+    try { lastSuccessAt = loadHealth().lastSuccessAt; } catch { /* 视为未知，跳过降级告警 */ }
+    const staleMs = Date.now() - Date.parse(lastSuccessAt);
+    if (!Number.isNaN(staleMs) && staleMs > STALE_H * 3_600_000 && !DRY)
       await sendOpsAlert(`信号源连续失败已超 ${Math.floor(staleMs / DAY_MS)} 天，页面已降级"人工核验中"。请检查 codex-resets.com 接口并改用 pnpm record 人工录入。`).catch(() => {});
     setOutput("changed", persisted ? "1" : "0"); // 部分成功也提交已推送的事件
   }

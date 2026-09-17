@@ -9,7 +9,7 @@ const local: ResetEvent[] = [{
 }];
 
 describe("mapRemote", () => {
-  it("regular→reset，banked→banked，保留溯源", () => {
+  it("regular→reset，保留溯源", () => {
     const m = mapRemote({ tweet_id: "2", tweet_url: "https://x.com/thsottiaux/status/2",
       text: "All reset.", announced_at: "2026-09-20T00:00:00.000Z", reset_type: "regular" }, 54);
     expect(m.type).toBe("reset");
