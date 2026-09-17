@@ -3,6 +3,9 @@ import { probability } from "@/lib/probability";
 import RadarStatus from "@/components/RadarStatus";
 import LastResetCard from "@/components/LastResetCard";
 import ResetTimeline from "@/components/ResetTimeline";
+import FeedList from "@/components/FeedList";
+import WishButton from "@/components/WishButton";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function Page() {
   const { events } = loadEvents();
@@ -17,6 +20,9 @@ export default function Page() {
       <RadarStatus stats={stats} prob={prob} healthy={healthy} now={now} />
       <LastResetCard event={lastReset} now={now} />
       <ResetTimeline events={events} stats={stats} />
+      <FeedList events={events} nowIso={now.toISOString()} />
+      <WishButton />
+      <SiteFooter stats={stats} updatedIso={loadHealth().lastSuccessAt} />
     </main>
   );
 }
