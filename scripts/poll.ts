@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { loadEvents, loadHealth, confirmedResets } from "../src/lib/events";
 import { findNewEvents, mapRemote, type RemoteEvent } from "../src/lib/diff";
+import { validateEvents } from "../src/lib/schema";
 import { sendResetAlert, sendOpsAlert } from "../src/lib/notify";
 
 const API = "https://codex-resets.com/api/resets";
@@ -48,6 +49,9 @@ async function main() {
         local.events.push(mapped);
         local.events.sort((a, b) => a.announcedAt.localeCompare(b.announcedAt));
         if (!DRY) {
+          // 写盘前过 schema 门禁：上游结构漂移时拒绝落盘，走 catch 降级（不部署脏数据）
+          const errors = validateEvents(local);
+          if (errors.length) throw new Error(`新数据未通过校验，拒绝落盘：\n${errors.join("\n")}`);
           fs.writeFileSync(path.join(DATA, "events.json"), JSON.stringify(local, null, 2) + "\n");
           persisted = true;
           pushed += 1;

@@ -1,22 +1,22 @@
 import Countdown from "./Countdown";
+import HealthBadge from "./HealthBadge";
 import type { DerivedStats } from "@/lib/types";
 import type { ProbabilityResult } from "@/lib/probability";
 import { fmtRelative } from "@/lib/format";
 
 export default function RadarStatus({
-  stats, prob, healthy, now,
+  stats, prob, healthy, lastSuccessAt, now,
 }: {
   stats: DerivedStats;
   prob: ProbabilityResult;
   healthy: boolean;
+  lastSuccessAt: string;
   now: Date;
 }) {
   return (
     <section className="card">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span className="badge">
-          <span className="dot pulse" />{healthy ? "雷达在线" : "雷达降级 · 人工核验中"}
-        </span>
+        <HealthBadge initialHealthy={healthy} lastSuccessAt={lastSuccessAt} />
         <span className="muted">已等 <b className="mono-num">{stats.daysSinceLastReset.toFixed(1)}</b> 天</span>
       </div>
       <p className="eyebrow" style={{ marginTop: 16 }}>未来 24 小时重置可能性</p>

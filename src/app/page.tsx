@@ -18,7 +18,7 @@ export default function Page() {
   const lastReset = confirmedResets(events).at(-1)!;
   return (
     <main className="shell">
-      <RadarStatus stats={stats} prob={prob} healthy={healthy} now={now} />
+      <RadarStatus stats={stats} prob={prob} healthy={healthy} lastSuccessAt={health.lastSuccessAt} now={now} />
       <LastResetCard event={lastReset} now={now} />
       <ResetTimeline events={events} stats={stats} />
       <FeedList events={events} nowIso={now.toISOString()} />
