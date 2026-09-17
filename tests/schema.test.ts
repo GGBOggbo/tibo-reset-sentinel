@@ -18,6 +18,10 @@ describe("validateEvents", () => {
     expect(validateEvents({ ...ok, version: 2 as 1 })).toHaveLength(1));
   it("type 枚举外报错", () =>
     expect(validateEvents({ ...ok, events: [{ ...ok.events[0], type: "foo" as never }] })).toHaveLength(1));
+  it("source 枚举外报错", () =>
+    expect(validateEvents({ ...ok, events: [{ ...ok.events[0], source: "foo" as never }] })).toHaveLength(1));
+  it("events 非数组报错", () =>
+    expect(validateEvents({ ...ok, events: "nope" as never })).toContain("events 必须为数组"));
   it("时间不可解析报错", () =>
     expect(validateEvents({ ...ok, events: [{ ...ok.events[0], announcedAt: "not-a-date" }] })).toHaveLength(1));
   it("tweetUrl 非 X 链接报错", () =>
@@ -26,6 +30,8 @@ describe("validateEvents", () => {
     const dup = { ...ok, events: [ok.events[0], { ...ok.events[0] }] };
     expect(validateEvents(dup)).toHaveLength(1);
   });
+  it("title 全空白报错", () =>
+    expect(validateEvents({ ...ok, events: [{ ...ok.events[0], title: " " }] })).toHaveLength(1));
   it("未来时间报错（+5 分钟容忍）", () => {
     const future = new Date(Date.now() + 10 * 60_000).toISOString();
     expect(validateEvents({ ...ok, events: [{ ...ok.events[0], announcedAt: future }] }, new Date())).toHaveLength(1);
