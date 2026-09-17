@@ -1,16 +1,22 @@
-import { loadEvents, deriveStats, resetIntervalsDays, loadHealth } from "@/lib/events";
+import { loadEvents, deriveStats, resetIntervalsDays, loadHealth, confirmedResets } from "@/lib/events";
 import { probability } from "@/lib/probability";
 import RadarStatus from "@/components/RadarStatus";
+import LastResetCard from "@/components/LastResetCard";
+import ResetTimeline from "@/components/ResetTimeline";
 
 export default function Page() {
   const { events } = loadEvents();
   const stats = deriveStats(events);
   const prob = probability(resetIntervalsDays(events), stats.daysSinceLastReset);
+  // 构建时求值：降级判定最长延迟一个心跳周期（12h）
   const healthy = Date.now() - Date.parse(loadHealth().lastSuccessAt) < 26 * 3_600_000;
+  const now = new Date();
+  const lastReset = confirmedResets(events).at(-1)!;
   return (
     <main className="shell">
-      <RadarStatus stats={stats} prob={prob} healthy={healthy} now={new Date()} />
-      <p className="muted">区块①完成：{stats.totalResets} 次重置</p>
+      <RadarStatus stats={stats} prob={prob} healthy={healthy} now={now} />
+      <LastResetCard event={lastReset} now={now} />
+      <ResetTimeline events={events} stats={stats} />
     </main>
   );
 }
