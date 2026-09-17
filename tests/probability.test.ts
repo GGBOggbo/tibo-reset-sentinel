@@ -36,4 +36,14 @@ describe("probability（离散风险率：等待 d 天后 24h 内重置比例）
   it("intervals 为空 → insufficient（而非 beyond，冷启动单事件场景）", () => {
     expect(probability([], 3).kind).toBe("insufficient");
   });
+  it("标签边界：30% → 中", () => {
+    // d=1：分母 = i>1 = 全部 10 个，分子 = (1,2] = {2,2,2} = 3 → 3/10=30%，
+    // 30 不满足 <30（低）而满足 ≤60 → 中。计划原 fixture [1,1,1,5×7] d=0.5
+    // 经核算实际同样得 30%（1>0.5 计入分母），此处改用整数 d 消除歧义。
+    expect(probability([2, 2, 2, 5, 5, 5, 5, 5, 5, 5], 1).label).toBe("中");
+  });
+  it("MIN_SAMPLE 边界：分母恰为 4 → insufficient", () => {
+    // d=0：分母 = 全部 4 个 → 4 < 5 → 样本不足
+    expect(probability([1, 2, 3, 4], 0).kind).toBe("insufficient");
+  });
 });
