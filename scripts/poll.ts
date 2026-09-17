@@ -9,6 +9,7 @@ const DATA = path.join(process.cwd(), "data");
 const DAY_MS = 86_400_000;
 const DRY = process.argv.includes("--dry-run");
 const STALE_H = 26; // 超过即判定"降级"
+const HEARTBEAT_H = 12; // 心跳提交粒度，须小于页面在线阈值（26h）
 
 async function fetchRemote(): Promise<RemoteEvent[]> {
   const res = await fetch(API, { signal: AbortSignal.timeout(20_000),
@@ -34,6 +35,7 @@ async function main() {
       .filter((r) => r.reset_type === "regular" || r.reset_type === "banked")
       .sort((a, b) => a.announced_at.localeCompare(b.announced_at));
 
+    let changed = "0";
     if (fresh.length > 0) {
       let seq = confirmedResets(local.events).length;
       let pushed = 0;
@@ -53,14 +55,21 @@ async function main() {
       }
       if (!DRY) await sendOpsAlert(`发现 ${fresh.length} 条新重置事件（最新第 ${seq} 次），已推送订阅群并更新数据，待部署生效。`);
       console.log(`新事件 ${fresh.length} 条${DRY ? "（dry-run，未落盘未推送）" : `，已推送 ${pushed} 条`}`);
-      setOutput("changed", DRY ? "0" : "1"); // dry-run 不触发 workflow 提交
       setOutput("changedCount", String(fresh.length));
+      changed = "1";
     } else {
       console.log("无新事件");
-      setOutput("changed", "0");
     }
-    if (!DRY) fs.writeFileSync(path.join(DATA, "health.json"),
-      JSON.stringify({ lastSuccessAt: new Date().toISOString() }, null, 2) + "\n");
+    if (!DRY) {
+      // 心跳：仓库中的 lastSuccessAt 超过 12h 才随本轮提交，避免每 30 分钟一个心跳 commit；
+      // 页面在线判定阈值为 26h，12h 心跳粒度不会误报"雷达降级"
+      const committedAt = Date.parse(loadHealth().lastSuccessAt);
+      const heartbeatDue = Number.isNaN(committedAt) || Date.now() - committedAt > HEARTBEAT_H * 3_600_000;
+      fs.writeFileSync(path.join(DATA, "health.json"),
+        JSON.stringify({ lastSuccessAt: new Date().toISOString() }, null, 2) + "\n");
+      if (heartbeatDue) changed = "1";
+    }
+    setOutput("changed", DRY ? "0" : changed); // dry-run 不触发 workflow 提交
   } catch (err) {
     console.error("本轮抓取/推送中断：", err);
     // health 读取失败不阻断 changed 输出，否则已推送事件不被提交、下轮会重复 @所有人
