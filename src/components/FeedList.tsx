@@ -34,12 +34,12 @@ export default function FeedList({ events, nowIso }: { events: ResetEvent[]; now
       <ol style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {list.map((e, i) => (
           <li key={e.id} style={{ borderTop: i ? "1px solid var(--card-border)" : "none", padding: "12px 0" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "baseline" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "baseline", flexWrap: "wrap" }}>
               <span className="badge" style={{
                 borderColor: e.type === "reset" ? "var(--accent-dim)" : e.type === "banked" ? "var(--warn)" : "var(--card-border)",
                 color: e.type === "reset" ? "var(--accent)" : e.type === "banked" ? "var(--warn)" : "var(--text-dim)",
               }}>{TYPE_NAME[e.type]}</span>
-              <span className="muted mono-num">{fmtRelative(e.announcedAt, now)} · {fmtBJ(e.announcedAt)}</span>
+              <span className="muted mono-num" style={{ whiteSpace: "nowrap" }}>{fmtRelative(e.announcedAt, now)} · {fmtBJ(e.announcedAt)}</span>
             </div>
             <p style={{ margin: "6px 0 2px", fontWeight: 600 }}>{e.title}</p>
             <p className="muted" style={{ margin: 0 }}>{e.summary}</p>
