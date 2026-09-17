@@ -1,0 +1,535 @@
+{
+  "version": 1,
+  "events": [
+    {
+      "id": "1968163721034994139",
+      "type": "reset",
+      "title": "全员额度重置补偿服务降速",
+      "summary": "为补偿 GPU 扩容期间的服务降速，官方重置 gpt-5-codex 全部用户额度。",
+      "announcedAt": "2025-09-17T04:02:52.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/1968163721034994139",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "1986166501435711936",
+      "type": "reset",
+      "title": "故障恢复后重置限额",
+      "summary": "Codex 全球性故障在约半小时内解决，官方重置所有限额。",
+      "announcedAt": "2025-11-05T20:19:29.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/1986166501435711936",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "1992370994028388670",
+      "type": "reset",
+      "title": "补偿延迟重置全员限额",
+      "summary": "因美国及周边地区出现异常高延迟，官方重置全部 Codex 用户限额。",
+      "announcedAt": "2025-11-22T23:13:56.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/1992370994028388670",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "1995988609896513743",
+      "type": "reset",
+      "title": "全量重置以快速缓解故障",
+      "summary": "为最快缓解当时的问题，官方重置 Codex 全员限额，约 10 分钟内全量生效。",
+      "announcedAt": "2025-12-02T22:49:02.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/1995988609896513743",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2001114683047317723",
+      "type": "reset",
+      "title": "全员用量限额重置",
+      "summary": "官方照例重置所有用户的用量限额，并对服务中断致歉。",
+      "announcedAt": "2025-12-17T02:18:14.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2001114683047317723",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2002137269134819610",
+      "type": "reset",
+      "title": "计量系统重写并全员重置",
+      "summary": "Codex 用量计量底层系统重写，因数据回填耗时，官方顺势重置全员限额。",
+      "announcedAt": "2025-12-19T22:01:37.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2002137269134819610",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2004100061933064395",
+      "type": "reset",
+      "title": "圣诞礼物：重置并限时翻倍",
+      "summary": "节日礼物：重置限额，并将用量上限提升至平常 2 倍，持续至 1 月 1 日。",
+      "announcedAt": "2025-12-25T08:01:03.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2004100061933064395",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2028649088594436225",
+      "type": "reset",
+      "title": "误拦截故障恢复后重置",
+      "summary": "因误判为高风险而拦截请求的故障约 8 分钟修复，官方随后重置限额。",
+      "announcedAt": "2026-03-03T01:50:07.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2028649088594436225",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2029308599835738218",
+      "type": "reset",
+      "title": "Plus/Pro 用户限额重置",
+      "summary": "约 9% 的 Plus 与 Pro 用户未获得 2 倍促销限额，修复后官方为两类用户重置限额。",
+      "announcedAt": "2026-03-04T21:30:47.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2029308599835738218",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2030474136024400173",
+      "type": "reset",
+      "title": "调查额度异常消耗并重置",
+      "summary": "在调查额度疑似异常消耗期间，官方先行重置 Plus 与 Pro 订阅限额。",
+      "announcedAt": "2026-03-08T02:42:13.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2030474136024400173",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2031216405266481489",
+      "type": "reset",
+      "title": "故障稳定后例行重置",
+      "summary": "该问题已解决并稳定数小时，官方按惯例再次重置限额。",
+      "announcedAt": "2026-03-10T03:51:43.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2031216405266481489",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2031605592352313567",
+      "type": "reset",
+      "title": "服务恢复，重置按钮已按下",
+      "summary": "Codex 恢复稳定，官方按下重置按钮，限额重置稍后生效。",
+      "announcedAt": "2026-03-11T05:38:13.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2031605592352313567",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2037346989244096581",
+      "type": "reset",
+      "title": "庆祝插件上线全员重置",
+      "summary": "为配合新上线的插件功能让用户尽情体验，官方重置所有套餐的用量限额。",
+      "announcedAt": "2026-03-27T01:52:28.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2037346989244096581",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2039248564967424483",
+      "type": "reset",
+      "title": "谨慎起见重置全套餐限额",
+      "summary": "仪表盘显示触达限额的用户异常增多且原因未明，官方谨慎起见重置所有套餐限额。",
+      "announcedAt": "2026-04-01T07:48:39.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2039248564967424483",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2041655710346572085",
+      "type": "reset",
+      "title": "庆祝周活三百万重置限额",
+      "summary": "Codex 周活跃用户达 300 万（一月前为 200 万），官方重置限额以示庆祝。",
+      "announcedAt": "2026-04-07T23:13:48.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2041655710346572085",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2042299371602264319",
+      "type": "reset",
+      "title": "百美元新套餐上线并重置",
+      "summary": "100 美元新套餐上线，官方兑现前一日预告再次重置用户限额。",
+      "announcedAt": "2026-04-09T17:51:28.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2042299371602264319",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2044943514832871564",
+      "type": "reset",
+      "title": "周年庆：全套餐限额重置",
+      "summary": "为庆祝 Codex 发布一周年，官方让 Codex 自行执行全套餐限额重置。",
+      "announcedAt": "2026-04-17T00:58:21.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2044943514832871564",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2046367145588916687",
+      "type": "reset",
+      "title": "十分钟故障恢复后重置",
+      "summary": "持续约 10 分钟的故障已缓解恢复，官方致歉并将重置限额。",
+      "announcedAt": "2026-04-20T23:15:21.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2046367145588916687",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2048997818673537399",
+      "type": "reset",
+      "title": "庆祝好一周，付费套餐重置",
+      "summary": "为庆祝顺利的一周并让大家多用 GPT-5.5，官方重置全部付费套餐限额。",
+      "announcedAt": "2026-04-28T05:28:43.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2048997818673537399",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2055707616605835333",
+      "type": "reset",
+      "title": "付费套餐限额周末重置",
+      "summary": "所有付费套餐的 Codex 用量限额已重置，官方祝用户周末愉快。",
+      "announcedAt": "2026-05-16T17:51:03.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2055707616605835333",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2058280452851638313",
+      "type": "reset",
+      "title": "修复额度过耗并全员重置",
+      "summary": "已定位并回滚导致长会话压缩缓存命中率下降的优化，同时重置全部账户限额。",
+      "announcedAt": "2026-05-23T20:14:35.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2058280452851638313",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2061106703446450392",
+      "type": "reset",
+      "title": "付费订阅恢复满额度",
+      "summary": "所有付费 ChatGPT 订阅的 Codex 限额已重置，周限与小时限均恢复 100%。",
+      "announcedAt": "2026-05-31T15:25:06.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2061106703446450392",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2062329981548802523",
+      "type": "reset",
+      "title": "多起小故障后付费重置",
+      "summary": "过去 24 小时三起小故障影响可靠性，官方重置所有付费套餐的 Codex 限额。",
+      "announcedAt": "2026-06-04T00:25:58.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2062329981548802523",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2067399435009622521",
+      "type": "reset",
+      "title": "双重重置：全额加重置卡",
+      "summary": "除即时全额重置外，官方再向每人的重置卡账户存入一张，可自行择时使用。",
+      "announcedAt": "2026-06-18T00:10:10.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2067399435009622521",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2070653282440405046",
+      "type": "reset",
+      "title": "补偿性全员额度重置",
+      "summary": "官方为所有用户赠送一次额度重置；已部署缓解措施，调查未发现大范围受影响。",
+      "announcedAt": "2026-06-26T23:39:48.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2070653282440405046",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2071381664853319742",
+      "type": "reset",
+      "title": "硬性重置全员额度",
+      "summary": "官方硬性重置全员额度；部分用户此前已攒有多达三张重置卡，可自行安排使用。",
+      "announcedAt": "2026-06-28T23:54:07.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2071381664853319742",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2071740419030053227",
+      "type": "reset",
+      "title": "重置并向重置卡再加一张",
+      "summary": "针对额度消耗过快的报告排查未发现单一根因；官方将全额重置并向重置卡追加一张。",
+      "announcedAt": "2026-06-29T23:39:41.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2071740419030053227",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2075330198887940337",
+      "type": "reset",
+      "title": "Work 与 Codex 全量重置",
+      "summary": "ChatGPT Work 与 Codex 用户限额全额重置，一小时内陆续生效。",
+      "announcedAt": "2026-07-09T21:24:11.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2075330198887940337",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2075641131002700120",
+      "type": "reset",
+      "title": "当日两波重置的第一波",
+      "summary": "ChatGPT Work 与 Codex 限额已重置，官方预告当天晚些时候还有一次。",
+      "announcedAt": "2026-07-10T17:59:43.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2075641131002700120",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2075820987833274448",
+      "type": "reset",
+      "title": "流量激增后再全员重置",
+      "summary": "ChatGPT Work 与 Codex 全员再获一次限额重置，官方感谢流量快速增长中的用户反馈。",
+      "announcedAt": "2026-07-11T05:54:25.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2075820987833274448",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2076418567143408112",
+      "type": "reset",
+      "title": "50 万用户获赠重置卡",
+      "summary": "为 50 万 ChatGPT Work 与 Codex 用户存入一张重置卡，网页与移动端也可使用。",
+      "announcedAt": "2026-07-12T21:28:59.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2076418567143408112",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2076735790567338203",
+      "type": "reset",
+      "title": "庆 700 万用户全员加重置卡",
+      "summary": "为庆祝 700 万活跃用户，官方向每个账户存入一张重置卡，可用于补满周用量。",
+      "announcedAt": "2026-07-13T18:29:31.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2076735790567338203",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2077114635308986427",
+      "type": "reset",
+      "title": "庆 800 万用户全员重置",
+      "summary": "活跃用户达 800 万，再次重置全员限额，并继续不设 5 小时限以配合 GPT-5.6 Sol。",
+      "announcedAt": "2026-07-14T19:34:54.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2077114635308986427",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2077607697487188198",
+      "type": "reset",
+      "title": "庆 900 万用户再重置",
+      "summary": "活跃用户当日早些时候已达 900 万，官方为 Codex 与 ChatGPT Work 用户再次重置限额。",
+      "announcedAt": "2026-07-16T04:14:09.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2077607697487188198",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2078320950488297917",
+      "type": "reset",
+      "title": "付费用户周末再重置",
+      "summary": "官方再次重置 Codex 与 ChatGPT Work 全体付费用户限额，并祝周末愉快。",
+      "announcedAt": "2026-07-18T03:28:22.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2078320950488297917",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2079609157934886975",
+      "type": "reset",
+      "title": "庆千万用户付费重置",
+      "summary": "活跃用户突破 1000 万，官方为付费用户带来新一次限额重置，一小时内生效。",
+      "announcedAt": "2026-07-21T16:47:15.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2079609157934886975",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2081096447718723984",
+      "type": "reset",
+      "title": "近乎全局故障后重置",
+      "summary": "昨夜凌晨发生近两小时近乎全局的故障且已恢复，官方重置全员限额。",
+      "announcedAt": "2026-07-25T19:17:12.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2081096447718723984",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2081940052154933696",
+      "type": "reset",
+      "title": "付费用户额度已重置",
+      "summary": "Codex 与 ChatGPT Work 全体付费用户限额已重置。",
+      "announcedAt": "2026-07-28T03:09:23.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2081940052154933696",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2082317452755751098",
+      "type": "reset",
+      "title": "全员重置并回应 Sol 消耗",
+      "summary": "官方重置全体用户限额，并就 GPT-5.6 Sol 消耗 Codex 额度偏快的反馈作出说明。",
+      "announcedAt": "2026-07-29T04:09:02.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2082317452755751098",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2083395449814229287",
+      "type": "reset",
+      "title": "庆效率周：限额重置",
+      "summary": "为庆祝高效的一周并支持周末运行 10 万个 Luna 线程，官方重置限额。",
+      "announcedAt": "2026-08-01T03:32:37.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2083395449814229287",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2086188036493344823",
+      "type": "reset",
+      "title": "庆 Sol 泛用上线付费重置",
+      "summary": "为庆祝 GPT-5.6 Sol 可在 CC harness 等各处使用，官方重置全体付费用户限额。",
+      "announcedAt": "2026-08-08T20:29:22.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2086188036493344823",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2086972802457063486",
+      "type": "reset",
+      "title": "重置已完成",
+      "summary": "官方发布极简公告，确认本次重置已执行完毕。",
+      "announcedAt": "2026-08-11T00:27:44.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2086972802457063486",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2087706104814023111",
+      "type": "reset",
+      "title": "庆 1500 万用户重置",
+      "summary": "为庆祝活跃用户突破 1500 万，官方重置全员限额，约一小时内陆续生效。",
+      "announcedAt": "2026-08-13T01:01:37.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2087706104814023111",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2090766694897619318",
+      "type": "banked",
+      "title": "2000 万用户赠重置卡",
+      "summary": "为庆祝活跃用户达 2000 万，官方为每位 Codex 与 Work 用户存入一张重置卡。",
+      "announcedAt": "2026-08-21T11:43:19.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2090766694897619318",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2091688655828246890",
+      "type": "reset",
+      "title": "重置已到账并修复用量",
+      "summary": "重置已同步至各账户，官方同步修复前一日披露的若干用量问题，体验应有改善。",
+      "announcedAt": "2026-08-24T00:46:51.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2091688655828246890",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "observed-20260825T143200Z",
+      "type": "reset",
+      "title": "观测收录的重置公告",
+      "summary": "原推为简短回复，未说明重置范围，本条由观测器收录为一次重置事件。",
+      "announcedAt": "2026-08-25T14:30:00.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2092311059197808936",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2093014447833116908",
+      "type": "reset",
+      "title": "全员焕新额度重置",
+      "summary": "官方重置 ChatGPT Work 与 Codex 全体用户用量限额。",
+      "announcedAt": "2026-08-27T16:35:05.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2093014447833116908",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2093801758665715784",
+      "type": "reset",
+      "title": "付费重置并修复八类消耗",
+      "summary": "重置全体付费用户限额；官方修复压缩、记忆、目标等八类额度消耗问题，用量可多用一至五成。",
+      "announcedAt": "2026-08-29T20:43:34.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2093801758665715784",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2094251180121854309",
+      "type": "reset",
+      "title": "庆 2500 万用户付费重置",
+      "summary": "为庆祝活跃用户达 2500 万，官方重置 ChatGPT Work 与 Codex 全部付费订阅额度。",
+      "announcedAt": "2026-08-31T02:29:25.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2094251180121854309",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2095651088502591861",
+      "type": "banked",
+      "title": "Astra 未上线每日赠重置卡",
+      "summary": "付费 ChatGPT 计划用户自当日起，每有一天无法使用 Astra 即获赠一张重置卡，首张约三小时后到账。",
+      "announcedAt": "2026-09-03T23:12:09.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2095651088502591861",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2096035437299237298",
+      "type": "banked",
+      "title": "Astra 上线赠全量重置卡",
+      "summary": "为庆祝 Astra 提前上线，官方当日为 Plus、Pro、Business 用户发放全量重置卡，日终前到账。",
+      "announcedAt": "2026-09-05T00:39:25.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2096035437299237298",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "observed-2097043464538264003",
+      "type": "reset",
+      "title": "所有用户额度重置",
+      "summary": "官方重置所有用户额度，并祝大家与 Astra 共度美好一周。",
+      "announcedAt": "2026-09-08T01:56:57.501Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2097174560412246215",
+      "verified": true,
+      "source": "codex-resets-poll"
+    },
+    {
+      "id": "2098685367058612394",
+      "type": "reset",
+      "title": "全量重置已传播完成",
+      "summary": "全量重置已同步至所有账户，官方道晚安。",
+      "announcedAt": "2026-09-12T08:09:17.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2098685367058612394",
+      "verified": true,
+      "source": "codex-resets-poll"
+    }
+  ]
+}
