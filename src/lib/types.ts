@@ -2,7 +2,7 @@ export type ResetEventType = "reset" | "banked" | "capacity" | "normal";
 export type EventSource = "codex-resets-poll" | "manual";
 
 export interface ResetEvent {
-  id: string;              // 推文 ID，去重键
+  id: string;              // 上游 tweet_id（可能为 observed-* 合成值），去重键
   type: ResetEventType;
   title: string;
   summary: string;

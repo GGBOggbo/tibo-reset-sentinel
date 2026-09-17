@@ -5,6 +5,7 @@ const SOURCES = new Set(["codex-resets-poll", "manual"]);
 
 export function validateEvents(file: EventsFile, now: Date = new Date()): string[] {
   const errors: string[] = [];
+  if (!file || typeof file !== "object") return ["文件必须是 JSON 对象"];
   if (file.version !== 1) errors.push("version 必须为 1");
   if (!Array.isArray(file.events)) return [...errors, "events 必须为数组"];
   const seen = new Set<string>();
@@ -20,7 +21,7 @@ export function validateEvents(file: EventsFile, now: Date = new Date()): string
     if (Date.parse(e.announcedAt) > now.getTime() + 5 * 60_000)
       errors.push(`${at}: announcedAt 不得晚于当前时间（+5 分钟容忍）`);
     if (!/^https:\/\/x\.com\/thsottiaux\/status\/\d+$/.test(e.tweetUrl))
-      errors.push(`${at}: tweetUrl 必须形如 https://x.com/thsottiaux/status/<id>`);
+      errors.push(`${at}: tweetUrl 非法（${e.tweetUrl}）`);
     if (!e.title?.trim()) errors.push(`${at}: title 不能为空`);
   });
   return errors;

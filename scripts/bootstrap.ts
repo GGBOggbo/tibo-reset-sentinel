@@ -14,6 +14,11 @@ interface RemoteEvent {
 }
 
 async function main() {
+  const target = path.join(DATA, "events.json");
+  if (fs.existsSync(target)) {
+    console.error("events.json 已存在：bootstrap 为一次性脚本，重跑会覆盖人工文案（如确需重建请先删除该文件）");
+    process.exit(1);
+  }
   const res = await fetch(API, { signal: AbortSignal.timeout(20_000) });
   if (!res.ok) throw new Error(`API ${res.status}`);
   const { events: remote } = (await res.json()) as { events: RemoteEvent[] };

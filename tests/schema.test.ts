@@ -39,4 +39,10 @@ describe("validateEvents", () => {
     const near = new Date(Date.now() + 60_000).toISOString();
     expect(validateEvents({ ...ok, events: [{ ...ok.events[0], announcedAt: near }] }, new Date())).toEqual([]);
   });
+  it("null 条目报错且不崩溃", () =>
+    expect(validateEvents({ ...ok, events: [null as never] })).toContain("events[0]: 条目必须为对象"));
+  it("id 缺失单独报错", () => {
+    const r = validateEvents({ ...ok, events: [{ ...ok.events[0], id: "" }] });
+    expect(r).toContain("events[0]: id 缺失");
+  });
 });
