@@ -16,6 +16,13 @@ describe("mapRemote", () => {
     expect(m.source).toBe("codex-resets-poll");
     expect(m.title).toContain("54");
   });
+
+  it("banked → type banked + 标题含重置卡", () => {
+    const m = mapRemote({ tweet_id: "3", tweet_url: "https://x.com/thsottiaux/status/3",
+      text: "banked reset for Pro", announced_at: "2026-09-22T00:00:00.000Z", reset_type: "banked" }, 55);
+    expect(m.type).toBe("banked");
+    expect(m.title).toContain("重置卡");
+  });
 });
 
 describe("findNewEvents", () => {
