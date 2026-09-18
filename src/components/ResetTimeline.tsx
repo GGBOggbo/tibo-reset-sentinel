@@ -1,4 +1,5 @@
 import type { ResetEvent } from "@/lib/types";
+import TimelineGrid from "./TimelineGrid";
 
 const COLOR: Record<string, string> = {
   reset: "var(--accent)",
@@ -8,7 +9,6 @@ const COLOR: Record<string, string> = {
 
 const LEGEND_NAME: Record<string, string> = { reset: "额度重置", banked: "重置卡", capacity: "容量信号" };
 
-const WEEKDAYS = ["一", "二", "三", "四", "五", "六", "日"]; // 行标签：周一在最上
 const WEEKS = 26;
 const DAY_MS = 86_400_000;
 const BJ_OFFSET = 8 * 3_600_000;
@@ -53,47 +53,26 @@ export default function ResetTimeline({ events }: { events: ResetEvent[] }) {
     : null;
 
   return (
-    <section className="card" id="history">
+    <section className="card" id="history" aria-labelledby="history-title">
       <p className="eyebrow">RESET MAP / 26 WEEKS</p>
-      <b>Codex 重置历史</b>
-      <div style={{ display: "flex", gap: 12, margin: "10px 0 14px", flexWrap: "wrap", fontSize: 12 }}>
+      <h2 id="history-title" className="section-heading">Codex 重置历史</h2>
+      <div className="timeline-legend">
         {Object.entries(COLOR).map(([k, v]) => (
-          <span key={k} className="muted">
-            <span style={{ display: "inline-block", width: 8, height: 8, borderRadius: "50%", background: v, marginRight: 4 }} />
+          <span key={k} style={{ color: v }}>
+            <i aria-hidden="true" />
             {LEGEND_NAME[k]}
           </span>
         ))}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "16px repeat(26, 1fr)", gap: "3px", alignItems: "center" }}>
-        <span />
-        {Array.from({ length: WEEKS }, (_, w) => {
-          const hit = monthLabels.find((x) => x.col === w);
-          return <span key={w} className="muted" style={{ fontSize: 10, fontFamily: "var(--mono)" }}>{hit?.label ?? ""}</span>;
-        })}
-        {WEEKDAYS.map((wd, row) => (
-          <div key={wd} style={{ display: "contents" }}>
-            <span className="muted" style={{ fontSize: 10, fontFamily: "var(--mono)" }}>{wd}</span>
-            {Array.from({ length: WEEKS }, (_, w) => {
-              const e = cells[w][row];
-              return (
-                <span key={w} title={e ? `${LEGEND_NAME[e.type]} · ${e.title}` : ""}
-                  style={{ display: "block", width: "100%", aspectRatio: "1", borderRadius: "50%",
-                    background: e ? COLOR[e.type] : "var(--card-border)",
-                    opacity: e ? 1 : 0.45 }} />
-              );
-            })}
-          </div>
-        ))}
-      </div>
+      <TimelineGrid cells={cells} monthLabels={monthLabels} />
 
       {latest && latestBJ && (
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 14,
-          border: "1px solid var(--card-border)", borderRadius: 10, padding: "8px 12px", width: "fit-content" }}>
+        <div className="timeline-latest">
           <span className="dot pulse" style={{ background: COLOR[latest.type] }} aria-hidden="true" />
-          <span className="muted">最近一次</span>
-          <b style={{ fontSize: 13 }}>{latestBJ}</b>
-          <span className="muted">· {LEGEND_NAME[latest.type]}</span>
+          <span>最近一次</span>
+          <strong>{latestBJ}</strong>
+          <span>· {LEGEND_NAME[latest.type]}</span>
         </div>
       )}
     </section>

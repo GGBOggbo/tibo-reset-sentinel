@@ -27,4 +27,6 @@ export interface DerivedStats {
 
 export interface HealthFile {
   lastSuccessAt: string;   // ISO，抓取最后成功时间
+  lastFailureAt: string | null;
+  lastError: string | null;
 }

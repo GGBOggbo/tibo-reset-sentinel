@@ -15,7 +15,7 @@ export default function HealthBadge({
     return () => clearInterval(t);
   }, [lastSuccessAt]);
   return (
-    <span className={`badge${healthy ? "" : " warn"}`}>
+    <span className={`badge${healthy ? "" : " warn"}`} role="status" aria-live="polite">
       <span className="dot pulse" />{healthy ? "雷达在线" : "雷达降级 · 人工核验中"}
     </span>
   );

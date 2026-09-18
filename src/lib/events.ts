@@ -10,7 +10,12 @@ export function loadEvents(): EventsFile {
 }
 
 export function loadHealth(): HealthFile {
-  return JSON.parse(fs.readFileSync(path.join(DATA_DIR, "health.json"), "utf8"));
+  const health = JSON.parse(fs.readFileSync(path.join(DATA_DIR, "health.json"), "utf8")) as Partial<HealthFile>;
+  return {
+    lastSuccessAt: health.lastSuccessAt ?? "",
+    lastFailureAt: health.lastFailureAt ?? null,
+    lastError: health.lastError ?? null,
+  };
 }
 
 export function confirmedResets(events: ResetEvent[]): ResetEvent[] {

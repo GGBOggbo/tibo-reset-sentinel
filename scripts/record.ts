@@ -16,9 +16,14 @@ const tweetUrl = arg("tweet");
 const id = tweetUrl.match(/status\/(\d+)$/)?.[1];
 if (!id) { console.error("tweet URL 必须形如 https://x.com/thsottiaux/status/<id>"); process.exit(1); }
 
+const type = arg("type") as ResetEvent["type"];
+if (!["reset", "banked", "capacity", "normal"].includes(type)) {
+  console.error("--type 必须是 reset、banked、capacity 或 normal"); process.exit(1);
+}
+
 const event: ResetEvent = {
   id,
-  type: arg("type") as ResetEvent["type"],
+  type,
   title: arg("title"),
   summary: process.argv.includes("--summary") ? arg("summary") : "",
   announcedAt: arg("at"),

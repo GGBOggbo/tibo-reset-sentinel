@@ -7,6 +7,8 @@ import StatCards from "@/components/StatCards";
 import FeedList from "@/components/FeedList";
 import WishButton from "@/components/WishButton";
 import SiteFooter from "@/components/SiteFooter";
+import BrandMark from "@/components/BrandMark";
+import PartnerResourceCard from "@/components/PartnerResourceCard";
 
 export default function Page() {
   const { events } = loadEvents();
@@ -20,22 +22,25 @@ export default function Page() {
   const lastReset = confirmedResets(events).at(-1)!;
   return (
     <main className="shell">
-      <header style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-        <span aria-hidden="true" style={{
-          display: "inline-flex", alignItems: "center", justifyContent: "center",
-          width: 38, height: 38, borderRadius: 12, fontSize: 20,
-          background: "var(--bg-soft)", border: "1px solid var(--card-border)" }}>🛰</span>
-        <div>
-          <b style={{ fontSize: 16 }}>额度哨兵 <span className="muted" style={{ fontWeight: 400 }}>· Codex Reset Sentinel</span></b>
-          <p className="muted" style={{ margin: 0 }}>
-            盯着 <a href="https://x.com/thsottiaux" target="_blank" rel="noreferrer">@thsottiaux</a> 的重置公告，替你从噪音里找信号
-          </p>
+      <header className="site-header">
+        <div className="brand-lockup">
+          <BrandMark />
+          <div>
+            <p className="eyebrow">TIBO RESET SENTINEL</p>
+            <h1>Tibo重置哨兵</h1>
+            <p className="tagline">盯着 <a href="https://x.com/thsottiaux" target="_blank" rel="noreferrer">@thsottiaux</a> 的重置公告，替你从噪音里找信号</p>
+          </div>
         </div>
+        <a className="header-link" href="https://x.com/thsottiaux" target="_blank" rel="noreferrer">查看原始信号 ↗</a>
       </header>
-      <RadarStatus stats={stats} prob={prob} healthy={healthy} lastSuccessAt={health.lastSuccessAt} now={now}
+      <PartnerResourceCard />
+      <RadarStatus stats={stats} prob={prob} healthy={healthy} lastSuccessAt={health.lastSuccessAt}
+        lastFailureAt={health.lastFailureAt} lastError={health.lastError} now={now}
         totalIntervals={intervals.length} />
-      <LastResetCard event={lastReset} now={now} />
-      <WishButton />
+      <div className="support-grid">
+        <LastResetCard event={lastReset} now={now} />
+        <WishButton />
+      </div>
       <StatCards stats={stats} />
       <ResetTimeline events={events} />
       <FeedList events={events} nowIso={now.toISOString()} />

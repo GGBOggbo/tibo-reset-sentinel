@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mapRemote, findNewEvents } from "@/lib/diff";
+import { mapRemote, findNewEvents, validateRemoteEvents } from "@/lib/diff";
 import type { ResetEvent } from "@/lib/types";
 
 const local: ResetEvent[] = [{
@@ -37,5 +37,15 @@ describe("findNewEvents", () => {
   it("只返回本地没有的重置类事件", () => {
     const fresh = findNewEvents(local, remote as never);
     expect(fresh.map((e) => e.tweet_id)).toEqual(["101", "102"]);
+  });
+});
+
+describe("validateRemoteEvents", () => {
+  const ok = { tweet_id: "1", tweet_url: "https://x.com/thsottiaux/status/1", text: "reset", announced_at: "2026-09-12T08:09:17.000Z", reset_type: "regular" as const };
+  it("接受合法远端事件", () => expect(validateRemoteEvents([ok], new Date("2026-09-13T00:00:00Z"))).toEqual([]));
+  it("拒绝非法原帖地址和未来时间", () => {
+    const errors = validateRemoteEvents([{ ...ok, tweet_url: "https://example.com", announced_at: "2027-01-01T00:00:00Z" }], new Date("2026-09-13T00:00:00Z"));
+    expect(errors.join("\n")).toMatch(/tweet_url 非法/);
+    expect(errors.join("\n")).toMatch(/announced_at 不得晚于/);
   });
 });
