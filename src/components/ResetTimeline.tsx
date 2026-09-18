@@ -53,7 +53,7 @@ export default function ResetTimeline({ events }: { events: ResetEvent[] }) {
     : null;
 
   return (
-    <section className="card" id="history" aria-labelledby="history-title">
+    <section className="card reveal reveal-5" id="history" aria-labelledby="history-title">
       <p className="eyebrow">RESET MAP / 26 WEEKS</p>
       <h2 id="history-title" className="section-heading">Codex 重置历史</h2>
       <div className="timeline-legend">

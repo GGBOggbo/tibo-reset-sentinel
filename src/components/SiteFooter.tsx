@@ -3,7 +3,7 @@ import type { DerivedStats } from "@/lib/types";
 export default function SiteFooter({ stats, updatedIso }: { stats: DerivedStats; updatedIso: string }) {
   return (
     <>
-      <section className="card subscribe-card" id="subscribe" aria-labelledby="subscribe-title">
+      <section className="card subscribe-card reveal reveal-7" id="subscribe" aria-labelledby="subscribe-title">
         <div>
           <p className="eyebrow">STAY TUNED</p>
           <h2 id="subscribe-title">订阅公开重置信号</h2>

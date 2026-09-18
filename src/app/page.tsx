@@ -22,7 +22,7 @@ export default function Page() {
   const lastReset = confirmedResets(events).at(-1)!;
   return (
     <main className="shell">
-      <header className="site-header">
+      <header className="site-header reveal reveal-1">
         <div className="brand-lockup">
           <BrandMark />
           <div>
@@ -34,14 +34,16 @@ export default function Page() {
         <a className="header-link" href="https://x.com/thsottiaux" target="_blank" rel="noreferrer">查看原始信号 ↗</a>
       </header>
       <PartnerResourceCard />
-      <RadarStatus stats={stats} prob={prob} healthy={healthy} lastSuccessAt={health.lastSuccessAt}
+      <div className="reveal reveal-3">
+        <RadarStatus stats={stats} prob={prob} intervalsDays={intervals} healthy={healthy} lastSuccessAt={health.lastSuccessAt}
         lastFailureAt={health.lastFailureAt} lastError={health.lastError} now={now}
         totalIntervals={intervals.length} />
-      <div className="support-grid">
+      </div>
+      <div className="support-grid reveal reveal-4">
         <LastResetCard event={lastReset} now={now} />
         <WishButton />
       </div>
-      <StatCards stats={stats} />
+      <div className="reveal reveal-4"><StatCards stats={stats} /></div>
       <ResetTimeline events={events} />
       <FeedList events={events} nowIso={now.toISOString()} />
       <SiteFooter stats={stats} updatedIso={health.lastSuccessAt} />

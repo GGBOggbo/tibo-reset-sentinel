@@ -32,7 +32,7 @@ export default function FeedList({ events, nowIso }: { events: ResetEvent[]; now
   };
 
   return (
-    <section className="card feed-card" id="feed" aria-labelledby="feed-title">
+    <section className="card feed-card reveal reveal-6" id="feed" aria-labelledby="feed-title">
       <div className="feed-header">
         <div className="feed-profile">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -57,7 +57,7 @@ export default function FeedList({ events, nowIso }: { events: ResetEvent[]; now
       {list.length === 0 && <p className="muted">该分类暂无记录。</p>}
       <ol className="feed-list">
         {list.map((e, i) => (
-          <li key={e.id} className="feed-item">
+          <li key={e.id} className="feed-item" style={{ animationDelay: `${i * 45}ms` }}>
             <span className="feed-index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
             <div>
               <div className="feed-item-top">
