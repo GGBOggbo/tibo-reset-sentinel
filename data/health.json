@@ -1,7 +1,7 @@
 {
-  "lastSuccessAt": "2026-09-26T10:25:45.535Z",
+  "lastSuccessAt": "2026-09-26T10:46:09.749Z",
   "lastFailureAt": null,
   "lastError": null,
-  "lastSource": "codex-resets-poll",
-  "sourceWarning": null
+  "lastSource": "resetrelay-rss",
+  "sourceWarning": "主源不可用（HTTP 403），本轮使用 Reset Relay RSS"
 }
