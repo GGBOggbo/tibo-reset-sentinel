@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -21,22 +23,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Poll
         id: poll
+        continue-on-error: true
         run: pnpm poll
       - name: Commit data
         if: steps.poll.outputs.changed == '1'
-        env:
-          COUNT: ${{ steps.poll.outputs.changedCount }}
-        run: |
-          git pull --rebase
-          git add data/
-          if git diff --cached --quiet; then
-            echo "No data changes to commit"
-            exit 0
-          fi
-          git config user.name "sentinel-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git commit -m "chore(data): ${COUNT:-1+} new event(s) [skip ci]"
-          git push
+        run: bash scripts/commit-data.sh
       - name: Mark poll failure after persisting state
-        if: steps.poll.outputs.failed == '1'
+        if: always() && steps.poll.outcome == 'failure'
         run: exit 1

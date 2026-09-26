@@ -530,6 +530,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2098685367058612394",
       "verified": true,
       "source": "codex-resets-poll"
+    },
+    {
+      "id": "2102463847714247142",
+      "type": "banked",
+      "title": "第 54 次重置（重置卡）",
+      "summary": "GPT-6 Sol and Luna are out. Not only are they a very significant improvement across the board, but also in writing and g",
+      "announcedAt": "2026-09-22T18:23:37.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2102463847714247142",
+      "verified": true,
+      "source": "codex-resets-poll"
     }
   ]
 }

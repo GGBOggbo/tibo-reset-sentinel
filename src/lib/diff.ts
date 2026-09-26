@@ -1,4 +1,4 @@
-import type { ResetEvent } from "./types";
+import type { EventSource, ResetEvent } from "./types";
 
 export interface RemoteEvent {
   tweet_id: string;
@@ -6,6 +6,7 @@ export interface RemoteEvent {
   text: string;
   announced_at: string;
   reset_type: "regular" | "banked";
+  title?: string;
 }
 
 const TWEET_URL = /^https:\/\/x\.com\/thsottiaux\/status\/\d+$/;
@@ -16,7 +17,7 @@ export function validateRemoteEvents(events: RemoteEvent[], now: Date = new Date
   events.forEach((e, i) => {
     const at = `remote[${i}]`;
     if (!e || typeof e !== "object") { errors.push(`${at}: 条目必须为对象`); return; }
-    if (!e.tweet_id?.trim()) errors.push(`${at}: tweet_id 缺失`);
+    if (typeof e.tweet_id !== "string" || !e.tweet_id.trim()) errors.push(`${at}: tweet_id 缺失`);
     if (seen.has(e.tweet_id)) errors.push(`${at}: tweet_id 重复（${e.tweet_id}）`);
     else seen.add(e.tweet_id);
     if (!TWEET_URL.test(e.tweet_url)) errors.push(`${at}: tweet_url 非法（${e.tweet_url}）`);
@@ -29,20 +30,21 @@ export function validateRemoteEvents(events: RemoteEvent[], now: Date = new Date
   return errors;
 }
 
-export function mapRemote(e: RemoteEvent, seq: number): ResetEvent {
+export function mapRemote(e: RemoteEvent, seq: number, source: EventSource = "codex-resets-poll"): ResetEvent {
   return {
     id: e.tweet_id,
     type: e.reset_type === "banked" ? "banked" : "reset",
-    title: `第 ${seq} 次重置（${e.reset_type === "banked" ? "重置卡" : "常规"}）`,
+    title: e.title ?? `第 ${seq} 次重置（${e.reset_type === "banked" ? "重置卡" : "常规"}）`,
     summary: e.text.slice(0, 120),
     announcedAt: e.announced_at,
     tweetUrl: e.tweet_url,
     verified: true,
-    source: "codex-resets-poll",
+    source,
   };
 }
 
 export function findNewEvents(local: ResetEvent[], remote: RemoteEvent[]): RemoteEvent[] {
   const known = new Set(local.map((e) => e.id));
-  return remote.filter((r) => !known.has(r.tweet_id));
+  const knownUrls = new Set(local.map((e) => e.tweetUrl));
+  return remote.filter((r) => !known.has(r.tweet_id) && !knownUrls.has(r.tweet_url));
 }

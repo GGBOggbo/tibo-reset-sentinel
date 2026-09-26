@@ -16,7 +16,7 @@ function typeClass(type: ResetEvent["type"]): string {
   return type === "reset" ? "badge" : type === "banked" ? "badge warn" : "badge";
 }
 
-export default function FeedList({ events, nowIso }: { events: ResetEvent[]; nowIso: string }) {
+export default function FeedList({ events, nowIso, updatedIso }: { events: ResetEvent[]; nowIso: string; updatedIso: string }) {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["key"]>("all");
   const [visibleCount, setVisibleCount] = useState(6);
   const now = new Date(nowIso);
@@ -43,7 +43,7 @@ export default function FeedList({ events, nowIso }: { events: ResetEvent[]; now
             <p className="muted">Thibault “Tibo” Sottiaux · OpenAI Codex 负责人</p>
           </div>
         </div>
-        <p className="feed-meta">已核验 {verifiedCount} 条<br />更新于 {fmtBJ(nowIso)}</p>
+        <p className="feed-meta">已核验 {verifiedCount} 条<br />最近成功采集 {updatedIso ? fmtBJ(updatedIso) : "暂无记录"}</p>
       </div>
 
       <div className="filter-row" role="group" aria-label="动态分类筛选">

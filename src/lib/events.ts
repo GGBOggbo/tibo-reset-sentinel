@@ -15,6 +15,8 @@ export function loadHealth(): HealthFile {
     lastSuccessAt: health.lastSuccessAt ?? "",
     lastFailureAt: health.lastFailureAt ?? null,
     lastError: health.lastError ?? null,
+    lastSource: health.lastSource,
+    sourceWarning: health.sourceWarning ?? null,
   };
 }
 

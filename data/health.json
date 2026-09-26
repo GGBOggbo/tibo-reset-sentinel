@@ -1,5 +1,7 @@
 {
-  "lastSuccessAt": "2026-09-17T13:46:18.146Z",
+  "lastSuccessAt": "2026-09-26T10:25:45.535Z",
   "lastFailureAt": null,
-  "lastError": null
+  "lastError": null,
+  "lastSource": "codex-resets-poll",
+  "sourceWarning": null
 }

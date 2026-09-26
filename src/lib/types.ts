@@ -1,5 +1,5 @@
 export type ResetEventType = "reset" | "banked" | "capacity" | "normal";
-export type EventSource = "codex-resets-poll" | "manual";
+export type EventSource = "codex-resets-poll" | "resetrelay-rss" | "manual";
 
 export interface ResetEvent {
   id: string;              // 上游 tweet_id（可能为 observed-* 合成值），去重键
@@ -29,4 +29,6 @@ export interface HealthFile {
   lastSuccessAt: string;   // ISO，抓取最后成功时间
   lastFailureAt: string | null;
   lastError: string | null;
+  lastSource?: Exclude<EventSource, "manual">;
+  sourceWarning?: string | null;
 }

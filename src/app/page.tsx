@@ -1,5 +1,6 @@
 import { loadEvents, deriveStats, resetIntervalsDays, loadHealth, confirmedResets } from "@/lib/events";
 import { probability } from "@/lib/probability";
+import { isHealthy } from "@/lib/health";
 import RadarStatus from "@/components/RadarStatus";
 import LastResetCard from "@/components/LastResetCard";
 import ResetTimeline from "@/components/ResetTimeline";
@@ -17,7 +18,7 @@ export default function Page() {
   const prob = probability(intervals, stats.daysSinceLastReset);
   const health = loadHealth();
   // 构建时求值：降级判定最长延迟一个心跳周期（12h）
-  const healthy = Date.now() - Date.parse(health.lastSuccessAt) < 26 * 3_600_000;
+  const healthy = isHealthy(health);
   const now = new Date();
   const lastReset = confirmedResets(events).at(-1)!;
   return (
@@ -37,6 +38,7 @@ export default function Page() {
       <div className="reveal reveal-3">
         <RadarStatus stats={stats} prob={prob} intervalsDays={intervals} healthy={healthy} lastSuccessAt={health.lastSuccessAt}
         lastFailureAt={health.lastFailureAt} lastError={health.lastError} now={now}
+        sourceWarning={health.sourceWarning}
         totalIntervals={intervals.length} />
       </div>
       <div className="support-grid reveal reveal-4">
@@ -45,7 +47,7 @@ export default function Page() {
       </div>
       <div className="reveal reveal-4"><StatCards stats={stats} /></div>
       <ResetTimeline events={events} />
-      <FeedList events={events} nowIso={now.toISOString()} />
+      <FeedList events={events} nowIso={now.toISOString()} updatedIso={health.lastSuccessAt} />
       <SiteFooter stats={stats} updatedIso={health.lastSuccessAt} />
     </main>
   );
