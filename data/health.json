@@ -1,7 +1,8 @@
 {
-  "lastSuccessAt": "2026-09-27T06:07:42.257Z",
-  "lastFailureAt": "2026-09-27T06:03:57.407Z",
-  "lastError": "GitHub 自动采集主源返回 HTTP 403，备用 RSS 尚未收录最新完成公告。",
-  "lastSource": "codex-resets-poll",
-  "sourceWarning": "自动采集仍异常；最新公告已通过本机公开 API 核实补录。云端主源 HTTP 403，备用 RSS 记录不完整。"
+  "lastSuccessAt": "2026-09-27T06:30:58.858Z",
+  "lastFailureAt": null,
+  "lastError": null,
+  "lastSource": "tibo-public-api",
+  "sourceWarning": null,
+  "sourceFetchedAt": "2026-09-27T06:28:19.226566+00:00"
 }
