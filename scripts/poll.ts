@@ -3,8 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { confirmedResets } from "../src/lib/events";
 import { findNewEvents, mapRemote, validateRemoteEvents } from "../src/lib/diff";
-import type { SourceResult } from "../src/lib/sources";
-import { fetchPollingSource } from "../src/lib/collector";
+import { fetchRemoteEvents, type SourceResult } from "../src/lib/sources";
 import { validateEvents } from "../src/lib/schema";
 import type { EventsFile, HealthFile } from "../src/lib/types";
 
@@ -13,7 +12,7 @@ interface PollResult { failed: boolean; changed: boolean; changedCount: number; 
 
 export async function runPoll({
   dataDir = path.join(process.cwd(), "data"), dryRun = false,
-  fetchRemote = () => fetchPollingSource(process.env.POLL_COLLECTOR_URL), now = new Date(),
+  fetchRemote = fetchRemoteEvents, now = new Date(),
 }: {
   dataDir?: string; dryRun?: boolean;
   fetchRemote?: () => Promise<SourceResult>; now?: Date;
