@@ -1,10 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { confirmedResets } from "../src/lib/events";
-import { findNewEvents, mapRemote, validateRemoteEvents } from "../src/lib/diff";
 import { fetchRemoteEvents, type SourceResult } from "../src/lib/sources";
-import { validateEvents } from "../src/lib/schema";
+import { mergeSourceEvents } from "../src/lib/sync";
 import type { EventsFile, HealthFile } from "../src/lib/types";
 
 const HEARTBEAT_H = 12;
@@ -26,36 +24,10 @@ export async function runPoll({
   let changed = false;
   let changedCount = 0;
   try {
-    const { events: remote, source, warning, unconfirmedUrls = [] } = await fetchRemote();
-    const remoteErrors = validateRemoteEvents(remote, now);
-    if (remoteErrors.length) throw new Error(`远端数据未通过校验：${remoteErrors.join("；")}`);
-    const local: EventsFile = read("events.json");
-    const localErrors = validateEvents(local, now);
-    if (localErrors.length) throw new Error(`本地历史未通过校验：${localErrors.join("；")}`);
+    const result = await fetchRemote();
+    const { source, warning, sourceFetchedAt } = result;
+    const { file: local, added: fresh, corrected } = mergeSourceEvents(read("events.json") as EventsFile, result, now);
     const health: HealthFile = read("health.json");
-
-    // 备用源的更正只修改来自该源的记录；保留原帖，停止把预告计入重置。
-    let corrected = false;
-    local.events = local.events.map((event) => {
-      if (event.source !== "resetrelay-rss") return event;
-      if (unconfirmedUrls.includes(event.tweetUrl) && event.type !== "normal") {
-        corrected = true;
-        return { ...event, type: "normal", verified: false,
-          title: `待确认 · ${event.title}`, summary: "来源已更正为待确认消息，不计入已完成重置。请查看原帖。" };
-      }
-      const confirmed = remote.find((r) => r.tweet_url === event.tweetUrl);
-      if (confirmed && event.type === "normal") {
-        corrected = true;
-        return { ...mapRemote(confirmed, confirmedResets(local.events).length + 1, source), id: event.id, announcedAt: event.announcedAt };
-      }
-      return event;
-    });
-    const fresh = findNewEvents(local.events, remote).sort((a, b) => a.announced_at.localeCompare(b.announced_at));
-    let seq = confirmedResets(local.events).length;
-    for (const event of fresh) local.events.push(mapRemote(event, ++seq, source));
-    local.events.sort((a, b) => a.announcedAt.localeCompare(b.announcedAt));
-    const errors = validateEvents(local, now);
-    if (errors.length) throw new Error(`新数据未通过校验，拒绝落盘：${errors.join("；")}`);
     changedCount = fresh.length;
     if (fresh.length || corrected) {
       if (!dryRun) { write("events.json", local); changed = true; }
@@ -71,7 +43,7 @@ export async function runPoll({
         || health.lastSource !== source || (health.sourceWarning ?? null) !== warning;
       if (heartbeatDue || healthChanged || changed) {
         write("health.json", { lastSuccessAt: now.toISOString(), lastFailureAt: null, lastError: null,
-          lastSource: source, sourceWarning: warning } satisfies HealthFile);
+          lastSource: source, sourceWarning: warning, sourceFetchedAt } satisfies HealthFile);
         changed = true;
       }
     }

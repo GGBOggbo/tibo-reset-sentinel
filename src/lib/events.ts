@@ -17,6 +17,7 @@ export function loadHealth(): HealthFile {
     lastError: health.lastError ?? null,
     lastSource: health.lastSource,
     sourceWarning: health.sourceWarning ?? null,
+    sourceFetchedAt: health.sourceFetchedAt,
   };
 }
 

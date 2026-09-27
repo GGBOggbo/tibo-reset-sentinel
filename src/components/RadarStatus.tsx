@@ -4,9 +4,10 @@ import LiveProbability from "./LiveProbability";
 import type { DerivedStats } from "@/lib/types";
 import type { ProbabilityResult } from "@/lib/probability";
 import { fmtBJ, fmtRelative } from "@/lib/format";
+import type { HealthFile } from "@/lib/types";
 
 export default function RadarStatus({
-  stats, prob, intervalsDays, healthy, lastSuccessAt, lastFailureAt, lastError, sourceWarning, now, totalIntervals,
+  stats, prob, intervalsDays, healthy, lastSuccessAt, lastFailureAt, lastError, sourceWarning, lastSource, sourceFetchedAt, now, totalIntervals,
 }: {
   stats: DerivedStats;
   prob: ProbabilityResult;
@@ -16,6 +17,8 @@ export default function RadarStatus({
   lastFailureAt: string | null;
   lastError: string | null;
   sourceWarning?: string | null;
+  lastSource?: HealthFile["lastSource"];
+  sourceFetchedAt?: string;
   now: Date;
   totalIntervals: number;
 }) {
@@ -25,7 +28,7 @@ export default function RadarStatus({
         <HealthBadge initialHealthy={healthy} lastSuccessAt={lastSuccessAt} lastFailureAt={lastFailureAt} sourceWarning={sourceWarning} />
         <span className="muted">已等 <b className="mono-num">{stats.daysSinceLastReset.toFixed(1)}</b> 天</span>
       </div>
-      {sourceWarning && <p className="muted" style={{ color: "var(--warn)", marginTop: 12 }}>主数据源暂不可用。备用 RSS 可以访问，但无法确认它已收录最新公告，记录可能不完整。</p>}
+      {sourceWarning && <p className="muted" style={{ color: "var(--warn)", marginTop: 12 }}>暂时无法核对最新公告，当前记录可能不完整。页面会自动重试。</p>}
       {!healthy && lastFailureAt && (
         <p className="muted" style={{ margin: "12px 0 0", color: "var(--warn)" }}>
           最近失败于 {fmtBJ(lastFailureAt)} · {lastError || "等待下一轮自动恢复"}
@@ -36,12 +39,13 @@ export default function RadarStatus({
         <div className="hero-count">
           <div>
             <div className="hero-heading">
-              <p className="eyebrow">LIVE RADAR / NEXT SCAN</p>
-              <h2 id="radar-title">距离下一次计划扫描</h2>
-              <p className="muted">计划每 30 分钟采集一次，实际执行可能延迟。</p>
+              <p className="eyebrow">LIVE RADAR / AUTO REFRESH</p>
+              <h2 id="radar-title">距离本页自动刷新</h2>
+              <p className="muted">本页每 5 分钟重新核对公开公告，重新回到本页也会刷新。</p>
             </div>
             <Countdown lastSuccessAt={lastSuccessAt} lastFailureAt={lastFailureAt} sourceWarning={sourceWarning} />
             <p className="muted" style={{ marginTop: 12 }}>最近来源读取：{lastSuccessAt ? `${fmtBJ(lastSuccessAt)}（北京时间）` : "暂无成功记录"} · 读取时间不代表公告完整</p>
+            <p className="muted">当前来源：{lastSource === "tibo-public-api" ? "TIBO 公开 API · Codex Resets 数据" : lastSource === "resetrelay-rss" ? "Reset Relay RSS" : "Codex Resets"}{sourceFetchedAt ? ` · 来源抓取于 ${fmtBJ(sourceFetchedAt)}` : ""}</p>
           </div>
           <div className="radar-dial" aria-hidden="true">
             <span className="blip" style={{ top: "26%", left: "62%" }} />

@@ -1,7 +1,8 @@
 # 额度哨兵 · Codex Reset Sentinel
 
-追踪 @thsottiaux 的 Codex 重置公告：自动轮询公开数据源 → 更新历史数据 → 静态站点。主源使用 codex-resets.com 文档公开的 `/api/v1/resets`（按游标读取所有分页），不再调用网站内部的 `/api/resets`。主源失败时使用 Reset Relay 的公开 Codex RSS，但将状态标为降级：能访问 RSS 不代表它已收录最新公告。设计见
-`docs/superpowers/specs/2026-09-17-额度哨兵-design.md`，产品简报见 `docs/额度哨兵-product-brief.md`。
+追踪 @thsottiaux 的 Codex 公开重置公告。页面与 RSS 从服务端获取最新来源数据，GitHub Actions 独立保存历史快照，不再把“等待下一次部署”作为展示新公告的前提。
+
+公开来源顺序：TIBO API（`https://tibo.cc/guide/api`，含上游抓取时间和新鲜度）→ Codex Resets API v1 → Reset Relay RSS（仅降级兜底）。原始数据仍归属 codex-resets.com，每条保留原帖链接。
 
 ## 本地开发
 
@@ -21,11 +22,16 @@
 
 ## 日常运维
 
-- 自动：计划每 30 分钟轮询一次（GitHub 实际调度可能延迟），新事件自动写入历史数据 + 提交数据 + 触发部署；无变化时数据健康每 12h 心跳提交一次。页面显示的是最近写入仓库的成功采集时间，倒计时仅表示计划时间。
-- 来源降级：主源 HTTP 错误或数据非法时读取 `https://www.resetrelay.com/codex/feed.xml`；备用源只接受已确认重置和重置卡公告，不把待确认预告记作已完成。同一原帖优先使用最新更正，以原帖 URL 和 ID 去重，历史记录不会被较短的 RSS 列表覆盖。备用源的更正会将其先前录入的对应事件转为普通动态。
-- `health.json` 记录 `lastSource` 和 `sourceWarning`。仅能读取备用源时，页面显示“更新异常 · 数据可能滞后”并隐藏倒计时；CLI 返回非零退出码，让 Actions 报出降级，同时仍保存合法的新记录。两源失败时保留历史、保存失败状态；workflow 先提交状态再标红。提交脚本先 commit 再 pull/rebase，避免未提交改动阻断自动更新。
-- 人工兜底：两源都不可用时，用 `pnpm record` 录入已核实的公告（示例：
-  `pnpm record -- --tweet https://x.com/thsottiaux/status/<id> --type reset --title "全量重置" --at 2026-09-20T08:00:00Z --summary "..."`），
-  最新失败状态会让页面显示“更新异常”；超过 26 小时没有保存成功采集记录，也会显示异常并隐藏扫描倒计时。目前没有飞书运维推送，请查看 GitHub Actions 的失败通知。
-- 注意：GitHub 对超过 60 天无活动的仓库会自动停用定时任务，长期无重置时留意 Actions 是否被禁用。
-- 冷启动脚本 `pnpm bootstrap` 为一次性工具，已存在数据时会拒绝执行。
+- **页面与 RSS：** 请求时读取实时快照，共享服务端 60 秒缓存；缓存到期后由请求触发后台重新核对。页面在可见状态下每 5 分钟实际执行刷新，回到浏览器标签页时也刷新。与 GitHub 定时任务、数据提交及部署是否完成无关。不是推文发布瞬间的实时保证。
+- **历史归档：** Actions 计划每小时第 17、47 分钟运行（避开整点高峰，实际仍可能延迟）。仅追加新记录和明确更正，历史保存在 `data/events.json`。无事件变化时每 12 小时保存归档任务心跳；网页显示的是实时快照读取时间，不使用归档心跳假装实时采集。
+- **新鲜度门禁：** TIBO 必须返回 `stale=false`、`upstream_status=ok`、无错误、非预测、合法原帖、未过期 `fresh_until`；抓取时间不能超过 10 分钟，上游响应生成时间不能超过 15 分钟。最近记录必须与本地历史有交集，避免无声漏掉超出上游最近 100 条窗口的历史。
+- **来源故障：** 一个结构化来源不可用时尝试另一个。仅 RSS 可用或所有来源失败时，保留历史并显示异常；10 分钟没有有效页面快照也不能显示健康。RSS 读取成功不代表它已收录最新公告；降级时 CLI 返回非零退出码、Actions 标红。
+- **持久化：** `scripts/commit-data.sh` 先保存提交再 rebase/push。失败状态也先提交，再结束 workflow。网页读取不会向 Git 写入。
+- **统一规则：** `src/lib/sync.ts` 被实时页面与归档共用，按原帖 URL/ID 去重、保留历史中文文案，并处理 RSS 的状态更正。预告不计入已完成重置。
+- **真实链路回归：** 手动触发 `poll` 时额外执行 `scripts/check-poll-recovery.ts`。只在临时目录移除最新一条，使用真正的来源请求验证重新发现、实时快照呈现、入库、旧历史不变、再次运行不重复。生产档案不被删改。
+- **诊断：** `diagnose-source` workflow 仅手动运行，检查公开接口状态和新鲜度。已确认原源对 GitHub 返回 Cloudflare challenge；不使用代理、伪装浏览器或验证码绕过。生产改用其开放再发布 API。
+- **人工补录：** 只在已有原帖证据时使用 `pnpm record`。补录成功不能作为自动监控恢复的证据。
+- 目前没有飞书推送。异常通过站内提示及 GitHub Actions 失败状态暴露。
+- GitHub 可能停用长期无活动的定时 workflow；页面实时读取仍独立运行，归档状态需查 Actions。
+
+原始设计参考 `docs/superpowers/specs/2026-09-17-额度哨兵-design.md`。当前数据来源和实时行为以本 README 与代码为准。

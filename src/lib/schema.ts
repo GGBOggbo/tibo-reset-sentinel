@@ -1,7 +1,7 @@
 import type { EventsFile, ResetEvent } from "./types";
 
 const TYPES = new Set(["reset", "banked", "capacity", "normal"]);
-const SOURCES = new Set(["codex-resets-poll", "resetrelay-rss", "manual"]);
+const SOURCES = new Set(["tibo-public-api", "codex-resets-poll", "resetrelay-rss", "manual"]);
 
 export function validateEvents(file: EventsFile, now: Date = new Date()): string[] {
   const errors: string[] = [];

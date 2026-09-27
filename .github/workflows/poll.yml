@@ -1,7 +1,7 @@
 name: poll
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "17,47 * * * *"
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -31,3 +31,6 @@ jobs:
       - name: Mark poll failure after persisting state
         if: always() && steps.poll.outcome == 'failure'
         run: exit 1
+      - name: Verify live recovery in an isolated archive
+        if: github.event_name == 'workflow_dispatch' && steps.poll.outcome == 'success'
+        run: pnpm exec tsx scripts/check-poll-recovery.ts

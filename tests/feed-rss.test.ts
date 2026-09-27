@@ -1,4 +1,8 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+vi.mock("@/lib/live", async () => {
+  const { loadEvents, loadHealth } = await import("@/lib/events");
+  return { loadLiveSnapshot: async () => ({ events: loadEvents().events, health: loadHealth() }) };
+});
 import { GET } from "@/app/feed.xml/route";
 
 describe("RSS feed", () => {

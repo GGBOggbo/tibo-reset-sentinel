@@ -1,14 +1,17 @@
-import { loadEvents, confirmedResets } from "@/lib/events";
+import { confirmedResets } from "@/lib/events";
+import { loadLiveSnapshot } from "@/lib/live";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tibo.c-quinn.xyz";
 
 function esc(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-export function GET() {
-  const items = confirmedResets(loadEvents().events)
+export async function GET() {
+  const snapshot = await loadLiveSnapshot();
+  const items = confirmedResets(snapshot.events)
     .slice(-20)
     .reverse()
     .map((e) => `  <item>
@@ -29,5 +32,5 @@ export function GET() {
 ${items}
 </channel>
 </rss>`;
-  return new Response(xml, { headers: { "content-type": "application/xml; charset=utf-8" } });
+  return new Response(xml, { headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "no-store" } });
 }

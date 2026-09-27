@@ -1,4 +1,5 @@
-import { loadEvents, deriveStats, resetIntervalsDays, loadHealth, confirmedResets } from "@/lib/events";
+import { deriveStats, resetIntervalsDays, confirmedResets } from "@/lib/events";
+import { loadLiveSnapshot } from "@/lib/live";
 import { probability } from "@/lib/probability";
 import { isHealthy } from "@/lib/health";
 import RadarStatus from "@/components/RadarStatus";
@@ -11,18 +12,19 @@ import SiteFooter from "@/components/SiteFooter";
 import BrandMark from "@/components/BrandMark";
 import PartnerResourceCard from "@/components/PartnerResourceCard";
 
-export default function Page() {
-  const { events } = loadEvents();
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
+export default async function Page() {
+  const { events, health } = await loadLiveSnapshot();
   const stats = deriveStats(events);
   const intervals = resetIntervalsDays(events);
   const prob = probability(intervals, stats.daysSinceLastReset);
-  const health = loadHealth();
-  // 构建时求值：降级判定最长延迟一个心跳周期（12h）
   const healthy = isHealthy(health);
   const now = new Date();
   const lastReset = confirmedResets(events).at(-1)!;
   return (
-    <main className="shell">
+    <main className="shell" data-checked-at={health.lastSuccessAt} data-source={health.lastSource}>
       <header className="site-header reveal reveal-1">
         <div className="brand-lockup">
           <BrandMark />
@@ -38,7 +40,7 @@ export default function Page() {
       <div className="reveal reveal-3">
         <RadarStatus stats={stats} prob={prob} intervalsDays={intervals} healthy={healthy} lastSuccessAt={health.lastSuccessAt}
         lastFailureAt={health.lastFailureAt} lastError={health.lastError} now={now}
-        sourceWarning={health.sourceWarning}
+        sourceWarning={health.sourceWarning} lastSource={health.lastSource} sourceFetchedAt={health.sourceFetchedAt}
         totalIntervals={intervals.length} />
       </div>
       <div className="support-grid reveal reveal-4">

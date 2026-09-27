@@ -1,5 +1,5 @@
 export type ResetEventType = "reset" | "banked" | "capacity" | "normal";
-export type EventSource = "codex-resets-poll" | "resetrelay-rss" | "manual";
+export type EventSource = "tibo-public-api" | "codex-resets-poll" | "resetrelay-rss" | "manual";
 
 export interface ResetEvent {
   id: string;              // 上游 tweet_id（可能为 observed-* 合成值），去重键
@@ -31,4 +31,5 @@ export interface HealthFile {
   lastError: string | null;
   lastSource?: Exclude<EventSource, "manual">;
   sourceWarning?: string | null;
+  sourceFetchedAt?: string;
 }
