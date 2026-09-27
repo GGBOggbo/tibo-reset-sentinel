@@ -8,7 +8,7 @@ import { validateEvents } from "../src/lib/schema";
 import type { EventsFile, HealthFile } from "../src/lib/types";
 
 const HEARTBEAT_H = 12;
-interface PollResult { failed: boolean; changed: boolean; changedCount: number }
+interface PollResult { failed: boolean; changed: boolean; changedCount: number; degraded?: boolean }
 
 export async function runPoll({
   dataDir = path.join(process.cwd(), "data"), dryRun = false,
@@ -61,6 +61,7 @@ export async function runPoll({
       if (!dryRun) { write("events.json", local); changed = true; }
     }
     console.log(`来源 ${source}；新事件 ${fresh.length} 条${dryRun ? "（dry-run，未落盘）" : ""}${corrected ? "；已处理来源更正" : ""}`);
+    for (const event of fresh) console.log(`新增公告 ${event.tweet_id} · ${event.reset_type} · ${event.announced_at}`);
     if (warning) console.warn(warning);
 
     if (!dryRun) {
@@ -74,7 +75,8 @@ export async function runPoll({
         changed = true;
       }
     }
-    return { failed: false, changed, changedCount };
+    // 能读取备用 RSS 不等于知道公告没有遗漏。保存可用数据，同时报告降级。
+    return { failed: false, changed, changedCount, degraded: !!warning };
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("本轮抓取中断：", message);
@@ -91,7 +93,7 @@ export async function runPoll({
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   runPoll({ dryRun: process.argv.includes("--dry-run") }).then((result) => {
     if (process.env.GITHUB_OUTPUT) fs.appendFileSync(process.env.GITHUB_OUTPUT,
-      `failed=${result.failed ? "1" : "0"}\nchanged=${result.changed ? "1" : "0"}\nchangedCount=${result.changedCount}\n`);
-    if (result.failed) process.exitCode = 1;
+      `failed=${result.failed || result.degraded ? "1" : "0"}\nchanged=${result.changed ? "1" : "0"}\nchangedCount=${result.changedCount}\n`);
+    if (result.failed || result.degraded) process.exitCode = 1;
   }).catch((err) => { console.error(err); process.exitCode = 1; });
 }

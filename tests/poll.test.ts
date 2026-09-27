@@ -28,7 +28,7 @@ afterEach(() => { fs.rmSync(dir, { recursive: true, force: true }); vi.restoreAl
 describe("轮询入库与故障恢复", () => {
   it("补入重置卡，保留历史，按原帖跨源去重；再次运行无重复", async () => {
     const opts = { dataDir: dir, now, fetchRemote: async () => remote };
-    expect(await runPoll(opts)).toMatchObject({ failed: false, changed: true, changedCount: 1 });
+    expect(await runPoll(opts)).toMatchObject({ failed: false, degraded: true, changed: true, changedCount: 1 });
     expect(read("events.json").events).toHaveLength(2);
     expect(read("events.json").events[0]).toEqual(event);
     expect(read("events.json").events[1]).toMatchObject({ type: "banked", source: "resetrelay-rss" });
@@ -40,6 +40,17 @@ describe("轮询入库与故障恢复", () => {
     expect(await runPoll({ dataDir: dir, now, fetchRemote: async () => { throw new Error("两源不可用"); } })).toMatchObject({ failed: true, changed: true });
     expect(fs.readFileSync(path.join(dir, "events.json"), "utf8")).toBe(original);
     expect(read("health.json")).toMatchObject({ lastSuccessAt: "2026-09-17T13:46:18.146Z", lastFailureAt: now.toISOString(), lastError: "两源不可用" });
+  });
+  it("公开主源恢复后清除降级状态，插入完成公告并去重", async () => {
+    await runPoll({ dataDir: dir, now, fetchRemote: async () => remote });
+    const recovered: SourceResult = { source: "codex-resets-poll", warning: null, events: [...remote.events,
+      { tweet_id: "2103911959544610829", tweet_url: "https://x.com/thsottiaux/status/2103911959544610829", text: "Resets all propagated.", announced_at: "2026-09-26T18:17:54.000Z", reset_type: "regular" },
+    ] };
+    const opts = { dataDir: dir, now: new Date("2026-09-27T00:00:00Z"), fetchRemote: async () => recovered };
+    expect(await runPoll(opts)).toMatchObject({ failed: false, degraded: false, changedCount: 1 });
+    expect(read("health.json")).toMatchObject({ lastSource: "codex-resets-poll", sourceWarning: null });
+    expect(read("events.json").events.at(-1).id).toBe("2103911959544610829");
+    expect(await runPoll(opts)).toMatchObject({ changed: false, changedCount: 0 });
   });
   it("dry-run 成功与失败都不写文件", async () => {
     const original = [read("events.json"), read("health.json")];

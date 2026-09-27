@@ -1,7 +1,7 @@
 import { loadEvents, confirmedResets } from "@/lib/events";
 
 export const dynamic = "force-static";
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3210";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://tibo.c-quinn.xyz";
 
 function esc(s: string) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -24,7 +24,7 @@ export function GET() {
 <channel>
   <title>Tibo重置哨兵 · Codex 重置追踪</title>
   <link>${esc(SITE_URL)}</link>
-  <description>追踪 @thsottiaux 的已核验 Codex 重置公告，确认后飞书群第一时间推送。</description>
+  <description>追踪 @thsottiaux 的公开 Codex 重置公告与重置卡记录，每条保留原帖链接。</description>
   <language>zh-CN</language>
 ${items}
 </channel>

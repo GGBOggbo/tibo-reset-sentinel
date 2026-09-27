@@ -1,7 +1,9 @@
 import { XMLParser, XMLValidator } from "fast-xml-parser";
 import { validateRemoteEvents, type RemoteEvent } from "./diff";
 
-export const PRIMARY_URL = "https://codex-resets.com/api/resets";
+// https://codex-resets.com/api/docs publishes v1 for external integrations.
+// /api/resets is the site's internal endpoint and rejects GitHub's requests.
+export const PRIMARY_URL = "https://codex-resets.com/api/v1/resets?limit=100";
 export const FALLBACK_URL = "https://www.resetrelay.com/codex/feed.xml";
 export type PollSource = "codex-resets-poll" | "resetrelay-rss";
 export interface SourceResult {
@@ -64,9 +66,31 @@ export async function fetchRemoteEvents(fetcher: typeof fetch = fetch): Promise<
   };
   let primaryError: string;
   try {
-    const body = await (await request(PRIMARY_URL)).json();
-    if (!Array.isArray(body?.events) || !body.events.length) throw new Error("API 结构异常：缺少历史事件");
-    return { events: checked(body.events), source: "codex-resets-poll", warning: null };
+    const events: RemoteEvent[] = [];
+    const cursors = new Set<string>();
+    let url = PRIMARY_URL;
+    for (;;) {
+      const body = await (await request(url)).json();
+      if (!Array.isArray(body?.data) || body.meta?.api_version !== "v1"
+        || typeof body.pagination?.has_more !== "boolean")
+        throw new Error("公开 API v1 结构异常");
+      for (const entry of body.data) {
+        if (!entry || !entry.source || (entry.source.type === "x_post" && entry.source.author !== "thsottiaux"))
+          throw new Error("公开 API 公告来源异常");
+        events.push({ tweet_id: entry.id, tweet_url: entry.source.url, text: entry.text,
+          announced_at: entry.announced_at, reset_type: entry.reset_type });
+      }
+      if (!body.pagination.has_more) break;
+      const cursor = body.pagination.next_cursor;
+      if (typeof cursor !== "string" || !cursor || cursors.has(cursor) || cursors.size >= 100)
+        throw new Error("公开 API 分页游标异常");
+      cursors.add(cursor);
+      const next = new URL(PRIMARY_URL);
+      next.searchParams.set("cursor", cursor);
+      url = next.toString();
+    }
+    if (!events.length) throw new Error("公开 API 未返回历史事件");
+    return { events: checked(events), source: "codex-resets-poll", warning: null };
   } catch (err) {
     primaryError = err instanceof Error ? err.message : String(err);
   }

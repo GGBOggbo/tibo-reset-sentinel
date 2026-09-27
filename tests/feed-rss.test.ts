@@ -7,6 +7,8 @@ describe("RSS feed", () => {
     expect(xml).toContain("<rss version=\"2.0\">");
     expect(xml).toMatch(/<link>https?:\/\//);
     expect(xml).not.toContain("PLACEHOLDER-DOMAIN");
+    expect(xml).not.toContain("localhost");
+    expect(xml).not.toContain("飞书群第一时间推送");
     expect(xml).toContain("<item>");
   });
 });

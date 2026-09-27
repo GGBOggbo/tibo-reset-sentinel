@@ -12,4 +12,7 @@ describe("健康状态", () => {
     for (const at of ["", "invalid", "2026-09-17T00:00:00Z", "2026-09-27T00:00:00Z"])
       expect(isHealthy({ ...health, lastSuccessAt: at }, now)).toBe(false);
   });
+  it("备用源读取成功也不能作为完整更新成功展示", () => {
+    expect(isHealthy({ ...health, sourceWarning: "主源 HTTP 403，使用备用 RSS" }, now)).toBe(false);
+  });
 });

@@ -22,10 +22,10 @@ export default function RadarStatus({
   return (
     <section className="card radar-card" aria-labelledby="radar-title">
       <div className="radar-top">
-        <HealthBadge initialHealthy={healthy} lastSuccessAt={lastSuccessAt} lastFailureAt={lastFailureAt} />
+        <HealthBadge initialHealthy={healthy} lastSuccessAt={lastSuccessAt} lastFailureAt={lastFailureAt} sourceWarning={sourceWarning} />
         <span className="muted">已等 <b className="mono-num">{stats.daysSinceLastReset.toFixed(1)}</b> 天</span>
       </div>
-      {sourceWarning && <p className="muted" style={{ color: "var(--warn)", marginTop: 12 }}>主数据源暂不可用，当前使用 Reset Relay 公开 RSS 备用源。</p>}
+      {sourceWarning && <p className="muted" style={{ color: "var(--warn)", marginTop: 12 }}>主数据源暂不可用。备用 RSS 可以访问，但无法确认它已收录最新公告，记录可能不完整。</p>}
       {!healthy && lastFailureAt && (
         <p className="muted" style={{ margin: "12px 0 0", color: "var(--warn)" }}>
           最近失败于 {fmtBJ(lastFailureAt)} · {lastError || "等待下一轮自动恢复"}
@@ -40,8 +40,8 @@ export default function RadarStatus({
               <h2 id="radar-title">距离下一次计划扫描</h2>
               <p className="muted">计划每 30 分钟采集一次，实际执行可能延迟。</p>
             </div>
-            <Countdown lastSuccessAt={lastSuccessAt} lastFailureAt={lastFailureAt} />
-            <p className="muted" style={{ marginTop: 12 }}>最近成功采集：{lastSuccessAt ? `${fmtBJ(lastSuccessAt)}（北京时间）` : "暂无成功记录"}</p>
+            <Countdown lastSuccessAt={lastSuccessAt} lastFailureAt={lastFailureAt} sourceWarning={sourceWarning} />
+            <p className="muted" style={{ marginTop: 12 }}>最近来源读取：{lastSuccessAt ? `${fmtBJ(lastSuccessAt)}（北京时间）` : "暂无成功记录"} · 读取时间不代表公告完整</p>
           </div>
           <div className="radar-dial" aria-hidden="true">
             <span className="blip" style={{ top: "26%", left: "62%" }} />

@@ -8,7 +8,7 @@ function nextSlot(from: number) {
   return Math.ceil((from + 1) / SLOT) * SLOT;
 }
 
-export default function Countdown({ lastSuccessAt, lastFailureAt }: { lastSuccessAt: string; lastFailureAt: string | null }) {
+export default function Countdown({ lastSuccessAt, lastFailureAt, sourceWarning }: { lastSuccessAt: string; lastFailureAt: string | null; sourceWarning?: string | null }) {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
     setNow(Date.now());
@@ -28,7 +28,7 @@ export default function Countdown({ lastSuccessAt, lastFailureAt }: { lastSucces
   const h = String(Math.floor(remain / 3_600_000)).padStart(2, "0");
   const m = String(Math.floor((remain % 3_600_000) / 60_000)).padStart(2, "0");
   const s = String(Math.floor((remain % 60_000) / 1000)).padStart(2, "0");
-  if (!isHealthy({ lastSuccessAt, lastFailureAt, lastError: null }, now)) {
+  if (!isHealthy({ lastSuccessAt, lastFailureAt, lastError: null, sourceWarning }, now)) {
     return <p role="status" className="muted" style={{ color: "var(--warn)" }}>自动更新异常，暂不显示扫描倒计时。历史记录仍可查看。</p>;
   }
   return (

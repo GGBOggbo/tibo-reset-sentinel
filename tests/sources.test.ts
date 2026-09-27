@@ -5,6 +5,41 @@ const url = "https://x.com/thsottiaux/status/2102463847714247142";
 const item = (status = "重置次数公告，不代表余额已恢复", date = "Tue, 22 Sep 2026 18:23:37 GMT", title = "重置卡公告") =>
   `<item><title>${title}</title><link>${url}</link><pubDate>${date}</pubDate><description>状态：${status}。原文：Plus &amp; Pro banked reset.</description></item>`;
 const feed = (items = item()) => `<rss><channel><link>https://www.resetrelay.com/codex</link>${items}</channel></rss>`;
+const publicReset = (id: string, reset_type = "regular") => ({ id, reset_type,
+  announced_at: "2026-09-26T18:17:54.000Z", text: "Resets all propagated.",
+  source: { type: "x_post", author: "thsottiaux", url: `https://x.com/thsottiaux/status/${id}` } });
+const publicPage = (data: unknown[], cursor: string | null = null) => new Response(JSON.stringify({
+  data, pagination: { has_more: cursor !== null, next_cursor: cursor }, meta: { api_version: "v1" },
+}));
+
+describe("已发布的 Public API v1", () => {
+  it("读取 data/source.url 格式，第55条完成公告不依赖滞后的 RSS", async () => {
+    const fetcher = vi.fn<typeof fetch>().mockResolvedValueOnce(publicPage([publicReset("2103911959544610829")]));
+    const result = await fetchRemoteEvents(fetcher);
+    expect(PRIMARY_URL).toBe("https://codex-resets.com/api/v1/resets?limit=100");
+    expect(result).toMatchObject({ source: "codex-resets-poll", warning: null, events: [{
+      tweet_id: "2103911959544610829", tweet_url: "https://x.com/thsottiaux/status/2103911959544610829", reset_type: "regular",
+    }] });
+    expect(fetcher).toHaveBeenCalledTimes(1);
+  });
+  it("继续读取分页，保留重置卡与 observed ID", async () => {
+    const fetcher = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(publicPage([publicReset("1", "banked")], "cursor_2"))
+      .mockResolvedValueOnce(publicPage([{ ...publicReset("2"), id: "observed-2", source: { type: "observed", url: "https://x.com/thsottiaux/status/2" } }]));
+    const result = await fetchRemoteEvents(fetcher);
+    expect(result.events.map(e => [e.tweet_id, e.reset_type])).toEqual([["1", "banked"], ["observed-2", "regular"]]);
+    expect(fetcher.mock.calls[1][0]).toBe(`${PRIMARY_URL}&cursor=cursor_2`);
+  });
+  it("分页循环不会静默截断历史或无限请求，转为明确降级", async () => {
+    const fetcher = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(publicPage([publicReset("1")], "same"))
+      .mockResolvedValueOnce(publicPage([publicReset("2")], "same"))
+      .mockResolvedValueOnce(new Response(feed()));
+    const result = await fetchRemoteEvents(fetcher);
+    expect(result.source).toBe("resetrelay-rss");
+    expect(result.warning).toContain("分页游标异常");
+  });
+});
 
 describe("公开 RSS 备用来源", () => {
   it("保留精确原帖 ID，识别重置卡并解码 XML", () => {
