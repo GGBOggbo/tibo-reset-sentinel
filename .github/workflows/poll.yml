@@ -24,6 +24,8 @@ jobs:
       - name: Poll
         id: poll
         continue-on-error: true
+        env:
+          POLL_COLLECTOR_URL: https://tibo.c-quinn.xyz/api/reset-source
         run: pnpm poll
       - name: Commit data
         if: steps.poll.outputs.changed == '1'
