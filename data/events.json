@@ -540,6 +540,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2102463847714247142",
       "verified": true,
       "source": "codex-resets-poll"
+    },
+    {
+      "id": "2103911959544610829",
+      "type": "reset",
+      "title": "第 55 次重置（常规）",
+      "summary": "Resets all propagated. That will be all. Have a fantastic weekend.",
+      "announcedAt": "2026-09-26T18:17:54.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2103911959544610829",
+      "verified": true,
+      "source": "codex-resets-poll"
     }
   ]
 }

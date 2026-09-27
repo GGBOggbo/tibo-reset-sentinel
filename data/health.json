@@ -1,7 +1,7 @@
 {
-  "lastSuccessAt": "2026-09-26T23:48:17.417Z",
-  "lastFailureAt": null,
-  "lastError": null,
-  "lastSource": "resetrelay-rss",
-  "sourceWarning": "主源不可用（HTTP 403），本轮使用 Reset Relay RSS"
+  "lastSuccessAt": "2026-09-27T06:07:42.257Z",
+  "lastFailureAt": "2026-09-27T06:03:57.407Z",
+  "lastError": "GitHub 自动采集主源返回 HTTP 403，备用 RSS 尚未收录最新完成公告。",
+  "lastSource": "codex-resets-poll",
+  "sourceWarning": "自动采集仍异常；最新公告已通过本机公开 API 核实补录。云端主源 HTTP 403，备用 RSS 记录不完整。"
 }
