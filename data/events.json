@@ -550,6 +550,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2103911959544610829",
       "verified": true,
       "source": "codex-resets-poll"
+    },
+    {
+      "id": "observed-20260929T190000Z",
+      "type": "banked",
+      "title": "第 56 次重置（重置卡）",
+      "summary": "@theo Shhhhhh",
+      "announcedAt": "2026-09-29T19:00:00.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2105120226027450685",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
