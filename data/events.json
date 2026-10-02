@@ -560,6 +560,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2105120226027450685",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2106131810921136451",
+      "type": "reset",
+      "title": "第 57 次重置（常规）",
+      "summary": "Reset all propagated. Enjoy. https://t.co/GaVJhbptR0",
+      "announcedAt": "2026-10-02T21:18:48.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2106131810921136451",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
