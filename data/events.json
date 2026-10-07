@@ -570,6 +570,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2106131810921136451",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2107676072871600470",
+      "type": "reset",
+      "title": "第 58 次重置（常规）",
+      "summary": "We shipped four things that were deemed good to great and some math proofs, but the vote is clear and the community dema",
+      "announcedAt": "2026-10-07T03:35:09.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2107676072871600470",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
