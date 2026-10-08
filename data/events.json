@@ -580,6 +580,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2107676072871600470",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2108040921044639779",
+      "type": "banked",
+      "title": "第 59 次重置（重置卡）",
+      "summary": "Confirmed landed across all accounts. How are we doing so far? https://t.co/tzw7dNX4pN",
+      "announcedAt": "2026-10-08T03:44:55.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2108040921044639779",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
