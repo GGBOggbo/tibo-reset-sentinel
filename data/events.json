@@ -590,6 +590,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2108040921044639779",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2109132167112782291",
+      "type": "reset",
+      "title": "第 60 次重置（常规）",
+      "summary": "Put the reset in the bag. All propagated. https://t.co/HGxaD3Zdcj",
+      "announcedAt": "2026-10-11T04:01:09.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2109132167112782291",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
