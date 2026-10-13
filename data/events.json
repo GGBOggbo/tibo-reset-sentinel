@@ -600,6 +600,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2109132167112782291",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2109873287853707513",
+      "type": "reset",
+      "title": "第 61 次重置（常规）",
+      "summary": "What would you like with your side of reset? It's done. https://t.co/gpNaB6otgy",
+      "announcedAt": "2026-10-13T05:06:06.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2109873287853707513",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
