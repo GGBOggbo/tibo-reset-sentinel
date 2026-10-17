@@ -620,6 +620,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2110618732666257557",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2111566005684289735",
+      "type": "reset",
+      "title": "第 63 次重置（常规）",
+      "summary": "Done",
+      "announcedAt": "2026-10-17T21:12:21.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2111566005684289735",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
