@@ -630,6 +630,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2111566005684289735",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2112432076767289678",
+      "type": "reset",
+      "title": "第 64 次重置（常规）",
+      "summary": "Day 15/ Nevermind, we're still cooking... and reset. Enjoy. https://t.co/RZ9WhtI802",
+      "announcedAt": "2026-10-20T06:33:48.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2112432076767289678",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
