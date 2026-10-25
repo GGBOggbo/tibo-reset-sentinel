@@ -660,6 +660,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2113492502355562875",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2114237083652882932",
+      "type": "reset",
+      "title": "第 67 次重置（常规）",
+      "summary": "It is all propagated. Enjoy some mad codexing tomorrow. Fun week ahead too. https://t.co/qOrzwSeIZZ https://t.co/xKaK95E",
+      "announcedAt": "2026-10-25T06:06:16.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2114237083652882932",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
