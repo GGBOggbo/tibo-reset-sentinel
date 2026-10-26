@@ -670,6 +670,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2114237083652882932",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "observed-2114588174249071102",
+      "type": "reset",
+      "title": "第 68 次重置（常规）",
+      "summary": "Codex usage limits have been reset. Check your limits.",
+      "announcedAt": "2026-10-26T07:00:00.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2114588174249071102",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
