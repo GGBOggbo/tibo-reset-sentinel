@@ -680,6 +680,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2114588174249071102",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2115330127886463244",
+      "type": "reset",
+      "title": "第 69 次重置（常规）",
+      "summary": "And it's done. See you tomorrow for some good news. https://t.co/WhJle2cWRG",
+      "announcedAt": "2026-10-28T06:29:38.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2115330127886463244",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
