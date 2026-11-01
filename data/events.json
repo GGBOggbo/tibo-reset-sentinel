@@ -690,6 +690,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2115330127886463244",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2116692529970311254",
+      "type": "banked",
+      "title": "第 70 次重置（重置卡）",
+      "summary": "Banked 1/2",
+      "announcedAt": "2026-11-01T00:43:20.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2116692529970311254",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
