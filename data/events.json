@@ -700,6 +700,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2116692529970311254",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2117035794678546764",
+      "type": "banked",
+      "title": "第 71 次重置（重置卡）",
+      "summary": "Day 28/ Banked 2/2",
+      "announcedAt": "2026-11-01T23:27:20.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2117035794678546764",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
