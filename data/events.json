@@ -710,6 +710,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2117035794678546764",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2120999993079451919",
+      "type": "banked",
+      "title": "第 72 次重置（重置卡）",
+      "summary": "We shipped some good updates to dots today and the banked reset has been activated and should land in everyones accounts",
+      "announcedAt": "2026-11-12T21:59:39.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2120999993079451919",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
