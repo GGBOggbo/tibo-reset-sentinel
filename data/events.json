@@ -720,6 +720,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2120999993079451919",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2125299248782778588",
+      "type": "banked",
+      "title": "第 73 次重置（重置卡）",
+      "summary": "To all the ChatGPT Business teams out there. We have two small things for you, a banked reset and fast mode at no extra ",
+      "announcedAt": "2026-11-24T18:43:21.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2125299248782778588",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
