@@ -730,6 +730,16 @@
       "tweetUrl": "https://x.com/thsottiaux/status/2125299248782778588",
       "verified": true,
       "source": "tibo-public-api"
+    },
+    {
+      "id": "2125853628250599730",
+      "type": "banked",
+      "title": "第 74 次重置（重置卡）",
+      "summary": "Banked reset is online",
+      "announcedAt": "2026-11-26T07:26:16.000Z",
+      "tweetUrl": "https://x.com/thsottiaux/status/2125853628250599730",
+      "verified": true,
+      "source": "tibo-public-api"
     }
   ]
 }
